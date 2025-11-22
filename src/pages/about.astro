@@ -2,8 +2,26 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 <BaseLayout title="About Me">
-    <h1 class="text-4xl font-bold mb-6">About Me</h1>
+    <div class="flex items-center gap-6 mb-6">
+        <img src="assets/img/cv_nova_small.jpg" alt="Profile image" class="w-32 h-32 rounded-full outline-blue-700 outline-1"/>
+        <h1 class="text-4xl font-bold">About Me</h1>
+    </div>
     <p class="text-gray-300 leading-7 mb-4">
     Write your bio, background, education, and work experience here.
     </p>
+    <section>
+        <h2 class="text-2xl font-semibold mb-3">Skills</h2>
+        <ul class="list-disc list-inside text-gray-300">
+            <li>Machine Learning & AI</li>
+            <li>Cybersecurity</li>
+            <li>Data Analysis</li>
+            <li>Programming: Python, JavaScript, C++</li>
+            <li>Web Development</li>
+        </ul>
+    </section>
+    <section class="mt-6">
+        <h2 class="text-2xl font-semibold mb-3">Contact</h2>
+        <p class="text-gray-300">Feel free to reach out to me via email at <a href="mailto:babic.dominik13@gmail.com" class="text-blue-400 hover:underline">babic.dominik13@gmail.com</a>.</p>
+        <p class="text-gray-300">You can also find me on <a href="https://www.linkedin.com/in/dominik-babić-b98961206/" class="text-blue-400 hover:underline">LinkedIn</a> and <a href="https://github.com/babicdom" class="text-blue-400 hover:underline">GitHub</a>.</p>
+    </section>
 </BaseLayout>

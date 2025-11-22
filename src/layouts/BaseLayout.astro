@@ -7,16 +7,18 @@ import "../styles/global.css"
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
     </head>
     <body class="min-h-screen flex flex-col">
-        <header class="w-full py-4 border-b border-gray-800">
+        <header class="w-full py-4 border-b border-gray-800 bg-gray-900 mb-8">
             <nav class="max-w-5xl mx-auto flex justify-between items-center px-4">
-                <a href="/" class="text-xl font-semibold">Your Name</a>
+                <a href="/" class="text-xl font-semibold hover:text-blue-400 link-animate ripple px-2 py-1 rounded">Dominik Babić</a>
                 <div class="space-x-6">
-                    <a href="/projects" class="hover:text-blue-400">Projects</a>
-                    <a href="/blog" class="hover:text-blue-400">Blog</a>
-                    <a href="/about" class="hover:text-blue-400">About</a>
+                    <a href="/projects" class="hover:text-blue-400 link-animate ripple px-3 py-2 rounded">Projects</a>
+                    <a href="/blog" class="hover:text-blue-400 link-animate ripple px-3 py-2 rounded">Blog</a>
+                    <a href="/about" class="hover:text-blue-400 link-animate ripple px-3 py-2 rounded">About</a>
                 </div>
             </nav>
         </header>
@@ -24,7 +26,32 @@ import "../styles/global.css"
             <slot />
         </main>
         <footer class="py-6 text-center border-t border-gray-800">
-            <p class="text-sm text-gray-500">© {new Date().getFullYear()} Your Name</p>
+            <p class="text-sm text-gray-500">© {new Date().getFullYear()} Dominik Babić</p>
         </footer>
+        <script>
+            // Enhanced click animations for links
+            document.addEventListener('DOMContentLoaded', function() {
+                const links = document.querySelectorAll('a');
+                
+                links.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // Create a temporary visual feedback
+                        this.style.transform = 'scale(0.95)';
+                        this.style.filter = 'brightness(0.8)';
+                        
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            this.style.filter = '';
+                        }, 150);
+                        
+                        // Add a subtle bounce animation
+                        this.classList.add('animate-bounce-gentle');
+                        setTimeout(() => {
+                            this.classList.remove('animate-bounce-gentle');
+                        }, 1000);
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

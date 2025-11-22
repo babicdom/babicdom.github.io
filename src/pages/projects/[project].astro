@@ -1,0 +1,21 @@
+---
+import { getCollection, getEntryBySlug } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { project: project.slug },
+  }));
+}
+
+const { project } = Astro.params;
+const projectData = await getEntryBySlug("projects", project);
+const { Content } = await projectData.render();
+---
+
+<h1 class="text-3xl font-bold">{projectData.data.title}</h1>
+<p class="text-gray-400">{projectData.data.description}</p>
+
+<article class="prose prose-invert mt-6">
+  <Content />
+</article>

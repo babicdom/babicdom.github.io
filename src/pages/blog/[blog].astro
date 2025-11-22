@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, getEntryBySlug } from "astro:content";
+
+export async function getStaticPaths() {
+  const blogs = await getCollection("blog");
+  return blogs.map((blog) => ({
+    params: { blog: blog.slug },
+  }));
+}
+
+const { blog } = Astro.params;
+const blogData = await getEntryBySlug("blog", blog);
+const { Content } = await blogData.render();
+---
+
+<BaseLayout title={blogData.data.title}>
+    <h1 class="text-3xl font-bold">{blogData.data.title}</h1>
+    {blogData.data.date && (
+        <time class="text-gray-600 text-sm">{blogData.data.date}</time>
+    )}
+
+    <article class="prose prose-invert mt-6">
+      <Content />
+    </article>
+</BaseLayout>

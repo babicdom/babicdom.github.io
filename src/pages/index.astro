@@ -1,28 +1,48 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const featured = projects.filter((p) => p.data.featured);
+
+const blogs = await getCollection("blog");
+const featuredBlogs = blogs.filter((b) => b.data.featured);
 ---
 <BaseLayout title="Home">
     <section class="text-center py-20">
-        <h1 class="text-5xl font-bold mb-4">Hi, I'm Your Name</h1>
+        <h1 class="text-5xl font-bold mb-4">Welcome, I'm Dominik Babić</h1>
         <p class="text-lg text-gray-400 max-w-2xl mx-auto">
         Machine Learning • Cyber Security • Deep Learning Research
         </p>
     </section>
 
-
-    <section>
+    <section class="mb-10">
         <h2 class="text-3xl font-semibold mb-6">Featured Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 border border-gray-800 rounded-xl hover:border-blue-500">
-                <h3 class="text-xl mb-2 font-bold">Project One</h3>
-                <p class="text-gray-400 mb-2">Short description of your ML/CTF/security project.</p>
-                <a href="#" class="text-blue-400 hover:underline">View project →</a>
-            </div>
-            <div class="p-6 border border-gray-800 rounded-xl hover:border-blue-500">
-                <h3 class="text-xl mb-2 font-bold">Project Two</h3>
-                <p class="text-gray-400 mb-2">Another cool project.</p>
-                <a href="#" class="text-blue-400 hover:underline">View project →</a>
-            </div>
+            {
+                featured.map((project) => (
+                    <ProjectCard 
+                        title={project.data.title} 
+                        description={project.data.description} 
+                        link={project.data.github} 
+                    />
+                ))
+            }
+        </div>
+    </section>
+    <section>
+        <h2 class="text-3xl font-semibold mb-6">Featured Blogs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {
+                featuredBlogs.map((blog) => (
+                    <ProjectCard 
+                        title={blog.data.title} 
+                        description={blog.data.description} 
+                        link={`/blog/${blog.slug}`}
+                    />
+                ))
+            }
         </div>
     </section>
 </BaseLayout>

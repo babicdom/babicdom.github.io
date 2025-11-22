@@ -1,7 +1,22 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const blogs = await getCollection("blog");
 ---
-<BaseLayout title="Blog">
-    <h1 class="text-4xl font-bold mb-6">Blog</h1>
-    <p class="text-gray-400 mb-6">I write about ML, cybersecurity, research, and engineering.</p>
+<BaseLayout title="Blogs">
+    <h1 class="text-4xl font-bold mb-6">Blogs</h1>
+    <p class="text-gray-400 mb-6">I'll be writing about a lot of different topics covering a wide range of interests including research, technology, and personal insights.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+            blogs.map((blog) => (
+                <ProjectCard 
+                    title={blog.data.title} 
+                    description={blog.data.description} 
+                    link={`/blog/${blog.slug}`}
+                />
+            ))
+        }
+    </div>
 </BaseLayout>
