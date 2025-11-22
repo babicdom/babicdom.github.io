@@ -1,0 +1,28 @@
+{
+  "name": "personal_site",
+  "version": "1.0.0",
+  "description": "Dominik Babic's Personal Website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babicdom/babicdom.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babicdom/babicdom.github.io/issues"
+  },
+  "homepage": "https://github.com/babicdom/babicdom.github.io#readme",
+  "dependencies": {
+    "@astrojs/node": "^9.5.1",
+    "astro": "^5.15.9"
+  }
+}
