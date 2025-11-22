@@ -23,6 +23,8 @@
   "homepage": "https://github.com/babicdom/babicdom.github.io#readme",
   "dependencies": {
     "@astrojs/node": "^9.5.1",
-    "astro": "^5.15.9"
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.15.9",
+    "tailwindcss": "^4.1.17"
   }
 }
