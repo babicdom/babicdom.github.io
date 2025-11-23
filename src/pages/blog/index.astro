@@ -16,6 +16,8 @@ const blogs = await getCollection("blog");
                     title={blog.data.title} 
                     description={blog.data.description} 
                     link={`/blog/${blog.slug}`}
+                    hasDetailPage={true}
+                    tags={blog.data.tags}
                 />
             ))
         }
