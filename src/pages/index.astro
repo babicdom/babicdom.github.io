@@ -10,36 +10,55 @@ const blogs = await getCollection("blog");
 const featuredBlogs = blogs.filter((b) => b.data.featured);
 ---
 <BaseLayout title="Home">
-    <section class="text-center py-20">
-        <h1 class="text-5xl font-bold mb-4">Welcome, I'm Dominik Babić</h1>
-        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-        Machine Learning • Cyber Security • Deep Learning Research
+    <section class="text-center py-8 fade-in-up">
+        <div class="relative mb-6">
+            <h1 class="text-6xl font-bold mb-8 gradient-text leading-tight">
+                Welcome to my personal site
+            </h1>
+            <div class="absolute -inset-4 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 blur-3xl -z-10 opacity-50"></div>
+        </div>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <span class="text-blue-400 font-semibold">Machine Learning</span> • 
+            <span class="text-purple-400 font-semibold">Deep Learning</span> • 
+            <span class="text-green-400 font-semibold">Robotics and Automation</span>
         </p>
     </section>
 
-    <section class="mb-10">
-        <h2 class="text-3xl font-semibold mb-6">Featured Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section class="mb-16 fade-in-up delay-100">
+        <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-4xl font-bold">Featured Projects</h2>
+            <div class="flex-1 h-px bg-linear-to-r from-blue-500/50 to-transparent"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {
                 featured.map((project) => (
                     <ProjectCard 
                         title={project.data.title} 
                         description={project.data.description} 
-                        link={project.data.github} 
+                        github={project.data.github}
+                        link={`/projects/${project.slug}`}
+                        hasDetailPage={project.data.hasDetailPage}
+                        tags={project.data.tags}
                     />
                 ))
             }
         </div>
     </section>
-    <section>
-        <h2 class="text-3xl font-semibold mb-6">Featured Blogs</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <section class="fade-in-up delay-200">
+        <div class="flex items-center gap-3 mb-8">
+            <h2 class="text-4xl font-bold">Featured Blogs</h2>
+            <div class="flex-1 h-px bg-linear-to-r from-purple-500/50 to-transparent"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {
                 featuredBlogs.map((blog) => (
                     <ProjectCard 
                         title={blog.data.title} 
                         description={blog.data.description} 
                         link={`/blog/${blog.slug}`}
+                        hasDetailPage={true}
+                        tags={blog.data.tags}
                     />
                 ))
             }

@@ -6,16 +6,19 @@ import { getCollection } from "astro:content";
 const projects = await getCollection("projects");
 ---
 <BaseLayout title="Projects">
-    <h1 class="text-4xl font-bold mb-6">Projects</h1>
-    <p class="text-gray-400 mb-6">A collection of my ML, Cybersecurity, and research work.</p>
+    <h1 class="text-4xl font-bold mb-6 fade-in-up">Projects</h1>
+    <p class="text-gray-400 mb-6 fade-in-up delay-100">A collection of my ML, Cybersecurity, and research work.</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-200">
         {
             projects.map((project) => (
                 <ProjectCard 
                     title={project.data.title} 
                     description={project.data.description} 
-                    link={project.data.github} 
+                    github={project.data.github}
+                    hasDetailPage={project.data.hasDetailPage}
+                    link={`/projects/${project.slug}`}
+                    tags={project.data.tags}
                 />
             ))
         }
