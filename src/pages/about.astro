@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import InfoCard from "../components/InfoCard.astro";
+import { Image } from "astro:assets";
 ---
 <BaseLayout title="About Me">
     <!-- Hero Section -->
@@ -8,7 +9,7 @@ import InfoCard from "../components/InfoCard.astro";
         <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
             <div class="relative group">
                 <div class="absolute -inset-1 bg-linear-to-r from-blue-500 to-purple-500 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                <img src="/assets/img/cv_nova_small.jpg" alt="Profile image" class="relative w-36 h-36 rounded-full border-2 border-gray-700 group-hover:border-blue-500 transition-all duration-300"/>
+                <Image src="/assets/img/cv_nova_small.jpg" alt="profile" width={36} height={36} loading="eager" class="relative w-36 h-36 rounded-full border-2 border-gray-700 group-hover:border-blue-500 transition-all duration-300"/>
             </div>
             <div class="text-center md:text-left">
                 <h1 class="text-5xl font-bold mb-4 bg-linear-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent">About Me</h1>
@@ -203,7 +204,7 @@ import InfoCard from "../components/InfoCard.astro";
                 Whether you're looking to discuss exciting opportunities, collaborate on innovative projects, share thoughts on technology and life, or join me for a run, I'd love to connect!
             </p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="/cv.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+                <a href="/assets/cv.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -229,11 +230,7 @@ import InfoCard from "../components/InfoCard.astro";
                     GitHub
                 </a>
                 <a href="https://www.strava.com/athletes/72844955" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.5 3a3.5 3.5 0 00-3.5 3.5v7A3.5 3.5 0 006.5 17h7a3.5 3.5 0 003.5-3.5v-7A3.5 3.5 0 0013.5 3h-7zM5 6.5A1.5 1.5 0 016.5 5h7A1.5 1.5 0 0115 6.5v7a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 015 13.5v-7z"></path>
-                        <path d="M10 7a3 3 0 100 6 3 3 0 000-6z"></path>
-                    </svg>
-                    Strava
+                    <Image alt="Strava Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Strava_Logo.svg/512px-Strava_Logo.svg.png?20171014153709" class="w-21 h-5" width={21} height={5} />
                 </a>
             </div>
         </div>
