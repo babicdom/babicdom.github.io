@@ -16,16 +16,20 @@ import InfoCard from "../components/InfoCard.astro";
             </div>
         </div>
         
-        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50">
+        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
             <p class="text-gray-300 leading-8 text-lg mb-4">
-                I'm a dedicated Machine Learning Engineer and Cybersecurity Specialist with a <span class="text-blue-400 font-medium">Master's in Computer Science</span> from the University of Rijeka. 
-                My expertise spans <span class="text-blue-400 font-medium">deep learning</span>, <span class="text-blue-400 font-medium">computer vision</span>, and <span class="text-blue-400 font-medium">security research</span>, with hands-on experience in developing 
-                cutting-edge AI solutions and robust security systems.
+                I'm a dedicated Machine Learning Engineer and Cybersecurity Enthusiast with a <span class="text-blue-400 font-medium">Master's in Computer Science</span> from the University of Zagreb and KTH Royal Institute of Technology in Sweden. 
+                My expertise spans <span class="text-blue-400 font-medium">deep learning</span>, <span class="text-blue-400 font-medium">computer vision</span>, and <span class="text-blue-400 font-medium">security research</span>, with extensive hands-on experience building 
+                innovative AI solutions through diverse ventures including <span class="text-blue-400 font-medium">research collaborations</span>, <span class="text-blue-400 font-medium">competitive hackathons</span>, and <span class="text-blue-400 font-medium">independent projects</span> that push technological boundaries.
+            </p>
+            <p class="text-gray-300 leading-8 text-lg mb-4">
+                Recently, I've expanded my expertise into the exciting field of <span class="text-blue-400 font-medium">Robotics and Automation</span>, where I'm actively learning and implementing solutions using <span class="text-blue-400 font-medium">ROS (Robot Operating System)</span> and <span class="text-blue-400 font-medium">ROS 2</span>. 
+                This journey into robotics perfectly complements my AI background, allowing me to bridge the gap between intelligent algorithms and physical autonomous systems. 
+                I'm particularly fascinated by how machine learning can enhance robotic perception and decision-making in real-world environments.
             </p>
             <p class="text-gray-300 leading-8 text-lg">
-                When I'm not diving deep into neural networks or security protocols, you'll find me exploring the trails on my runs or 
-                immersed in the latest video games. I believe in the power of technology to solve complex problems and enjoy sharing 
-                my insights through writing and open-source contributions.
+                Beyond my technical pursuits in neural networks and robotics, I'm passionate about <span class="text-blue-400 font-medium">middle- and long-distance running</span> and actively participate in the European running scene. 
+                You'll often find me training on urban streets and scenic trails, preparing for many different races ranging from 400m, 800m and 1500m to <span class="text-blue-400 font-medium">marathons and half-marathons</span> across different countries.
             </p>
         </div>
     </div>
@@ -33,9 +37,9 @@ import InfoCard from "../components/InfoCard.astro";
     <!-- Education Section -->
     <section class="mb-16">
         <h2 class="text-3xl font-bold mb-8 text-center">Education</h2>
-        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50">
+        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
             <div class="flex items-start gap-6">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
@@ -43,26 +47,26 @@ import InfoCard from "../components/InfoCard.astro";
                         </svg>
                     </div>
                 </div>
-                <div class="flex-grow space-y-8">
+                <div class="grow space-y-8">
                     <InfoCard 
                         institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia" 
                         degree="MSc in Computer Science" 
                         specialization="Artificial Intelligence and Computer Vision"
-                        description="Focused on advanced machine learning algorithms, deep learning architectures, and their applications in computer vision and cybersecurity. Completed thesis work on cutting-edge AI research with practical implementations."
+                        list={["Excelled academically, placing in the top 2% of students in the generation with a GPA of 4.79/5.0.", "Relevant courses: Machine Learning, Pattern Recognition, Computer Vision, Deep Learning etc"]}
                         startDate="2023"
                         endDate="2025"
                     />
                     <InfoCard 
                         institution="KTH Royal Institute of Technology, Sweden" 
                         degree="MSc in Computer Science - Exchange"
-                        description="Focused on advanced machine learning algorithms, deep learning architectures, and their applications in computer vision and cybersecurity. Completed thesis work on cutting-edge AI research with practical implementations."
+                        list={["Collaborated on a reproducibility research paper: An in-depth exploration of Finite Scalar Quantization with VAEs.", "Relevant courses: Deep Learning Advanced, Security in Computer Systems, Reinforcement Learning etc."]}
                         startDate="2024"
                         endDate="2025"
                     />
                     <InfoCard 
                         institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia" 
                         degree="BSc in Computer Science"
-                        description="Focused on advanced machine learning algorithms, deep learning architectures, and their applications in computer vision and cybersecurity. Completed thesis work on cutting-edge AI research with practical implementations."
+                        list={["Ranked in the top 5% of students in the generation with a GPA of 4.54/5.0.", "Bachelor's Thesis awarded with the highest grade for the research on: Vector Quantized Variational Autoencoder - VQVAE."]}
                         startDate="2020"
                         endDate="2023"
                     />
@@ -93,11 +97,11 @@ import InfoCard from "../components/InfoCard.astro";
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <span class="text-gray-300">Synthetic Data Generation</span>
+                        <span class="text-gray-300">Reinforcement Learning</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <span class="text-gray-300">MLOps & Model Deployment</span>
+                        <span class="text-gray-300">Robotics and Automation</span>
                     </div>
                 </div>
             </div>
@@ -120,7 +124,7 @@ import InfoCard from "../components/InfoCard.astro";
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
-                        <span class="text-gray-300">Docker • Kubernetes • AWS</span>
+                        <span class="text-gray-300">Docker • AWS</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-2 h-2 bg-orange-400 rounded-full"></div>
@@ -140,7 +144,7 @@ import InfoCard from "../components/InfoCard.astro";
                 <InfoCard 
                     institution="Gideon Brothers d.o.o." 
                     degree="Junior R&D Engineer"
-                    description="Developed and deployed machine learning models for predictive analytics, improving accuracy by 15%. Collaborated with cross-functional teams to integrate AI solutions into existing products."
+                    description="Working on developing autonomous mobile robots, coordination algorithms, and simulation environments."
                     startDate="June 2025"
                     endDate="Present"
                 />
@@ -176,7 +180,7 @@ import InfoCard from "../components/InfoCard.astro";
             <div class="text-center p-6 bg-gray-800/20 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 group">
                 <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🏃‍♂️</div>
                 <h3 class="text-lg font-semibold mb-2 text-blue-400">Running</h3>
-                <p class="text-gray-400 text-sm">Finding clarity and endurance on the trails</p>
+                <p class="text-gray-400 text-sm">Finding clarity and endurance on the trails and track</p>
             </div>
             <div class="text-center p-6 bg-gray-800/20 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 group">
                 <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎮</div>
@@ -184,9 +188,9 @@ import InfoCard from "../components/InfoCard.astro";
                 <p class="text-gray-400 text-sm">Exploring virtual worlds and game mechanics</p>
             </div>
             <div class="text-center p-6 bg-gray-800/20 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 group">
-                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">✍️</div>
-                <h3 class="text-lg font-semibold mb-2 text-blue-400">Writing</h3>
-                <p class="text-gray-400 text-sm">Sharing insights and experiences through blogs</p>
+                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📖</div>
+                <h3 class="text-lg font-semibold mb-2 text-blue-400">Reading</h3>
+                <p class="text-gray-400 text-sm">Trying to absorb new knowledge and stories</p>
             </div>
         </div>
     </section>
@@ -196,7 +200,7 @@ import InfoCard from "../components/InfoCard.astro";
         <h2 class="text-3xl font-bold mb-6 text-center">Let's Connect</h2>
         <div class="text-center space-y-4">
             <p class="text-gray-300 text-lg mb-6">
-                I'm always interested in discussing new opportunities, collaborations, or just chatting about technology and life.
+                Whether you're looking to discuss exciting opportunities, collaborate on innovative projects, share thoughts on technology and life, or join me for a run, I'd love to connect!
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="/cv.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
@@ -223,6 +227,13 @@ import InfoCard from "../components/InfoCard.astro";
                         <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
                     </svg>
                     GitHub
+                </a>
+                <a href="https://www.strava.com/athletes/72844955" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.5 3a3.5 3.5 0 00-3.5 3.5v7A3.5 3.5 0 006.5 17h7a3.5 3.5 0 003.5-3.5v-7A3.5 3.5 0 0013.5 3h-7zM5 6.5A1.5 1.5 0 016.5 5h7A1.5 1.5 0 0115 6.5v7a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 015 13.5v-7z"></path>
+                        <path d="M10 7a3 3 0 100 6 3 3 0 000-6z"></path>
+                    </svg>
+                    Strava
                 </a>
             </div>
         </div>

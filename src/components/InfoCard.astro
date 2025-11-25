@@ -4,11 +4,12 @@ export interface Props {
     degree?: string;
     specialization?: string;
     description?: string;
+    list?: Array<string>;
     startDate?: string;
     endDate?: string;
 }
 
-const { institution = "University of Zagreb, Croatia", degree = "Master of Science in Computer Science", specialization, description = "Focused on advanced machine learning algorithms, deep learning architectures, and their applications in computer vision and cybersecurity. Completed thesis work on cutting-edge AI research with practical implementations.", startDate = "2022", endDate = "2024" } = Astro.props;
+const { institution = "University of Zagreb, Croatia", degree = "Master of Science in Computer Science", specialization, description, list, startDate = "2022", endDate = "2024" } = Astro.props;
 ---
 <div class="grow">
     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
@@ -17,7 +18,10 @@ const { institution = "University of Zagreb, Croatia", degree = "Master of Scien
     </div>
     <p class="text-gray-300 font-medium mb-1">{institution}</p>
     {specialization && <p class="text-gray-400 text-sm mb-3">Specialization in {specialization}</p>}
-    <p class="text-gray-300 text-sm leading-relaxed">
-        {description}
-    </p>
+    {description && <p class="text-gray-300 text-sm leading-relaxed">{description}</p>}
+    {
+        list && (list.map((item) => {
+            return <p class="text-gray-300 text-sm leading-relaxed">• {item}</p>;
+        }))
+    }
 </div>
