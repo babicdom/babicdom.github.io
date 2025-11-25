@@ -1,0 +1,45 @@
+---
+const data_repo_id = import.meta.env.DATA_REPO_ID;
+const data_category_id = import.meta.env.DATA_CATEGORY_ID;
+---
+
+<div class="comments-section mt-8 pt-8 border-t border-gray-700/50">
+  <h3 class="text-xl font-semibold mb-6 text-gray-200">Comments</h3>
+  
+  <div id="giscus-container">
+    <script 
+        src="https://giscus.app/client.js"
+        data-repo="babicdom/babicdom.github.io"
+        data-repo-id={data_repo_id}
+        data-category="General"
+        data-category-id={data_category_id}
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+  </div>
+</div>
+
+<style>
+  .giscus {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .giscus-frame {
+    border: none !important;
+    background: transparent !important;
+  }
+
+  /* Hide reactions section if you prefer cleaner look */
+  .giscus .giscus-reactions {
+    display: none !important;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Comments from "../../components/Comments.astro";
 import { getCollection, getEntryBySlug } from "astro:content";
 
 export async function getStaticPaths() {
@@ -50,5 +51,7 @@ const { Content } = await projectData.render();
     <article class="prose prose-invert mt-6 max-w-none">
       <Content />
     </article>
+    
+    <Comments title={projectData.data.title} />
 </BaseLayout>
 
