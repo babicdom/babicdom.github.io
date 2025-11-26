@@ -77,14 +77,27 @@ body {
 }
 
 .fade-in-up {
+  opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
+  animation-fill-mode: both;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Staggered animation delays */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
+.delay-100 { 
+  animation-delay: 0.1s; 
+}
+.delay-200 { 
+  animation-delay: 0.2s; 
+}
+.delay-300 { 
+  animation-delay: 0.3s; 
+}
+.delay-400 { 
+  animation-delay: 0.4s; 
+}
 
 /* Ripple effect for interactive elements */
 .ripple {

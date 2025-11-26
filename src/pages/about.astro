@@ -6,7 +6,7 @@ import { Image } from "astro:assets";
 <BaseLayout title="About Me">
     <!-- Hero Section -->
     <div class="relative mb-16">
-        <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
+        <div class="fade-in-up flex flex-col md:flex-row items-center gap-8 mb-8">
             <div class="relative group">
                 <div class="absolute -inset-1 bg-linear-to-r from-blue-500 to-purple-500 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                 <Image src="/assets/img/cv_nova_small.jpg" alt="profile" width={36} height={36} loading="eager" class="relative w-36 h-36 rounded-full border-2 border-gray-700 group-hover:border-blue-500 transition-all duration-300"/>
@@ -17,7 +17,7 @@ import { Image } from "astro:assets";
             </div>
         </div>
         
-        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+        <div class="fade-in-up bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
             <p class="text-gray-300 leading-8 text-lg mb-4">
                 I'm a dedicated Machine Learning Engineer and Cybersecurity Enthusiast with a <span class="text-blue-400 font-medium">Master's in Computer Science</span> from the University of Zagreb and KTH Royal Institute of Technology in Sweden. 
                 My expertise spans <span class="text-blue-400 font-medium">deep learning</span>, <span class="text-blue-400 font-medium">computer vision</span>, and <span class="text-blue-400 font-medium">security research</span>, with extensive hands-on experience building 
@@ -37,8 +37,8 @@ import { Image } from "astro:assets";
 
     <!-- Education Section -->
     <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center">Education</h2>
-        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Education</h2>
+        <div class="fade-in-up bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
             <div class="flex items-start gap-6">
                 <div class="shrink-0">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
@@ -78,10 +78,10 @@ import { Image } from "astro:assets";
 
     <!-- Skills Section -->
     <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center">Technical Skills</h2>
+        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Technical Skills</h2>
         <div class="grid md:grid-cols-2 gap-8">
             <!-- Technical Skills -->
-            <div class="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+            <div class="fade-in-up bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
                 <h3 class="text-xl font-semibold mb-4 text-blue-400">AI & Machine Learning</h3>
                 <div class="space-y-3">
                     <div class="flex items-center gap-3">
@@ -108,7 +108,7 @@ import { Image } from "astro:assets";
             </div>
             
             <!-- Programming Languages -->
-            <div class="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+            <div class="fade-in-up bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
                 <h3 class="text-xl font-semibold mb-4 text-blue-400">Technologies & Tools</h3>
                 <div class="space-y-3">
                     <div class="flex items-center gap-3">
@@ -138,8 +138,8 @@ import { Image } from "astro:assets";
 
     <!-- Professional Experience -->
     <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center">Professional Experience</h2>
-        <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Professional Experience</h2>
+        <div class="fade-in-up bg-gray-800/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
             <!-- Experience Item -->
             <div class="space-y-8">
                 <InfoCard 
@@ -176,8 +176,8 @@ import { Image } from "astro:assets";
 
     <!-- Personal Interests -->
     <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center">Beyond Code</h2>
-        <div class="grid md:grid-cols-3 gap-6">
+        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Beyond Code</h2>
+        <div class="grid md:grid-cols-3 gap-6 fade-in-up">
             <div class="text-center p-6 bg-gray-800/20 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 group">
                 <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🏃‍♂️</div>
                 <h3 class="text-lg font-semibold mb-2 text-blue-400">Running</h3>
@@ -197,7 +197,7 @@ import { Image } from "astro:assets";
     </section>
 
     <!-- Contact Section -->
-    <section class="bg-linear-to-r from-gray-800/20 to-blue-900/10 p-8 rounded-2xl border border-gray-700/50">
+    <section class="fade-in-up bg-linear-to-r from-gray-800/20 to-blue-900/10 p-8 rounded-2xl border border-gray-700/50">
         <h2 class="text-3xl font-bold mb-6 text-center">Let's Connect</h2>
         <div class="text-center space-y-4">
             <p class="text-gray-300 text-lg mb-6">

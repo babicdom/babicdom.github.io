@@ -17,9 +17,9 @@ const { Content } = await blogData.render();
 
 <BaseLayout title={blogData.data.title}>
     <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-4">{blogData.data.title}</h1>
+        <h1 class="text-4xl font-bold mb-4 fade-in-up">{blogData.data.title}</h1>
         
-        <div class="flex flex-wrap items-center gap-4 mb-4">
+        <div class="flex flex-wrap items-center gap-4 mb-4 fade-in-up delay-100">
             {blogData.data.date && (
                 <time class="text-gray-400 text-sm flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,9 +31,9 @@ const { Content } = await blogData.render();
         </div>
     </div>
     
-    <article class="prose prose-invert mt-6 max-w-none">
+    <article class="prose prose-invert mt-6 max-w-none fade-in-up delay-200">
       <Content />
     </article>
     
-    <Comments title={blogData.data.title} />
+    <Comments title={blogData.data.title} class="fade-in-up delay-300" />
 </BaseLayout>
