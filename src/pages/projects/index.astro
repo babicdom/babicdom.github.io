@@ -5,23 +5,122 @@ import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
 projects.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const allTags = [...new Set(projects.flatMap(project => project.data.tags || []))].sort();
 ---
 <BaseLayout title="Projects">
-    <h1 class="text-4xl font-bold mb-6 fade-in-up">Projects</h1>
-    <p class="text-gray-400 mb-6 fade-in-up delay-100">A collection of my ML, Cybersecurity, and research work.</p>
+    <div class="fade-in-up">
+        <h1 class="text-4xl font-bold mb-4">Projects</h1>
+        <p class="text-gray-400 mb-8">A collection of my ML, Cybersecurity, and research work.</p>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-200">
+    <div class="mb-8 fade-in-up delay-100">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="text-lg font-medium text-gray-300">Filter by:</span>
+            <button 
+                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-blue-500/20 text-blue-400 border border-blue-500/50" 
+                data-filter="all"
+            >
+                All ({projects.length})
+            </button>
+            {allTags.map((tag) => {
+                const count = projects.filter(p => p.data.tags?.includes(tag)).length;
+                return (
+                    <button 
+                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-700/30 text-gray-400 border border-gray-600/50 hover:bg-gray-600/50 hover:text-gray-300 hover:border-gray-500/50" 
+                        data-filter={tag}
+                    >
+                        {tag} ({count})
+                    </button>
+                );
+            })}
+        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span id="results-count">{projects.length} projects found</span>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-200">
         {
             projects.map((project) => (
-                <ProjectCard 
-                    title={project.data.title} 
-                    description={project.data.description} 
-                    github={project.data.github}
-                    hasDetailPage={project.data.hasDetailPage}
-                    link={`/projects/${project.slug}`}
-                    tags={project.data.tags}
-                />
+                <div class="project-item" data-tags={JSON.stringify(project.data.tags || [])}>
+                    <ProjectCard 
+                        title={project.data.title} 
+                        description={project.data.description} 
+                        github={project.data.github}
+                        hasDetailPage={project.data.hasDetailPage}
+                        link={`/projects/${project.slug}`}
+                        tags={project.data.tags}
+                    />
+                </div>
             ))
         }
     </div>
+
+    <!-- No results message -->
+    <div id="no-results" class="hidden text-center py-12 fade-in-up delay-300">
+        <div class="text-gray-400 mb-4">
+            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2">No projects found</h3>
+            <p>Try selecting a different tag or view all projects.</p>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+        const resultsCount = document.getElementById('results-count');
+        const noResults = document.getElementById('no-results');
+        const projectsGrid = document.getElementById('projects-grid');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                // Update active button
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-blue-500/20', 'text-blue-400', 'border-blue-500/50');
+                    b.classList.add('bg-gray-700/30', 'text-gray-400', 'border-gray-600/50', 'hover:bg-gray-600/50', 'hover:text-gray-300', 'hover:border-gray-500/50');
+                });
+                
+                btn.classList.add('active', 'bg-blue-500/20', 'text-blue-400', 'border-blue-500/50');
+                btn.classList.remove('bg-gray-700/30', 'text-gray-400', 'border-gray-600/50', 'hover:bg-gray-600/50', 'hover:text-gray-300', 'hover:border-gray-500/50');
+
+                // Filter projects
+                let visibleCount = 0;
+                projectItems.forEach(item => {
+                    const tags = JSON.parse(item.getAttribute('data-tags') || '[]');
+                    const shouldShow = filter === 'all' || tags.includes(filter);
+                    const htmlItem = item as HTMLElement;
+                    
+                    if (shouldShow) {
+                        htmlItem.style.display = 'block';
+                        htmlItem.classList.add('fade-in-up');
+                        visibleCount++;
+                    } else {
+                        htmlItem.style.display = 'none';
+                        htmlItem.classList.remove('fade-in-up');
+                    }
+                });
+
+                // Update results count and show/hide no results
+                resultsCount.textContent = `${visibleCount} project${visibleCount !== 1 ? 's' : ''} found`;
+                
+                if (visibleCount === 0) {
+                    noResults?.classList.remove('hidden');
+                    (projectsGrid as HTMLElement)!.style.display = 'none';
+                } else {
+                    noResults?.classList.add('hidden');
+                    (projectsGrid as HTMLElement)!.style.display = 'grid';
+                }
+            });
+        });
+    </script>
 </BaseLayout>
