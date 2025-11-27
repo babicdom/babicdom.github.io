@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://babicdom.github.io',
+  site: 'https://dominik-babic.github.io',
   base: '/',
   
   integrations: [

@@ -4,7 +4,7 @@ date: "2024-06-01"
 tags: ["ML", "DL", "security"]
 description: "A project focused on detecting synthetic images leveraging foundational models."
 featured: true
-github: "https://github.com/babicdom/Synth_Image_Detection"
+github: "https://github.com/dominik-babic/Synth_Image_Detection"
 hasDetailPage: true
 ---
 

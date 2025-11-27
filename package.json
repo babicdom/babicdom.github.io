@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/babicdom/babicdom.github.io.git"
+    "url": "git+https://github.com/dominik-babic/dominik-babic.github.io.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/babicdom/babicdom.github.io/issues"
+    "url": "https://github.com/dominik-babic/dominik-babic.github.io/issues"
   },
-  "homepage": "https://github.com/babicdom/babicdom.github.io#readme",
+  "homepage": "https://github.com/dominik-babic/dominik-babic.github.io#readme",
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",
     "@astrojs/node": "^9.5.1",
