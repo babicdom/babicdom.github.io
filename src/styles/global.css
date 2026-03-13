@@ -7,16 +7,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: #f3f4f6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: #d1d5db;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  background: #9ca3af;
 }
 
 /* Smooth page transitions */
@@ -51,7 +51,7 @@ body {
 }
 
 .glow-on-hover:hover {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
 }
 
 /* Floating animation for hero elements */
@@ -113,7 +113,7 @@ body {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(16, 185, 129, 0.2);
   transform: translate(-50%, -50%);
   transition: width 0.6s ease, height 0.6s ease;
 }
@@ -125,8 +125,8 @@ body {
 
 /* Subtle border animation */
 @keyframes borderGlow {
-  0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+  0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
 }
 
 .border-glow {
@@ -135,7 +135,7 @@ body {
 
 /* Custom focus styles */
 .focus-outline:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #10b981;
   outline-offset: 2px;
   border-radius: 0.5rem;
 }
@@ -147,7 +147,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(-45deg, #60a5fa, #a78bfa, #60a5fa, #34d399);
+  background: linear-gradient(-45deg, #34d399, #fbbf24, #34d399, #2dd4bf);
   background-size: 400% 400%;
   background-clip: text;
   -webkit-background-clip: text;

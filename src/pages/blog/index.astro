@@ -10,13 +10,13 @@ const allTags = [...new Set(blogs.flatMap(blog => blog.data.tags || []))].sort()
 ---
 <BaseLayout title="Blogs">
     <h1 class="text-4xl font-bold mb-6 fade-in-up">Blogs</h1>
-    <p class="text-gray-400 mb-6 fade-in-up delay-100">I'll be writing about a lot of different topics covering a wide range of interests including research, technology, and personal insights.</p>
+    <p class="text-gray-500 mb-6 fade-in-up delay-100">I'll be writing about a lot of different topics covering a wide range of interests including research, technology, and personal insights.</p>
     
      <div class="mb-8 fade-in-up delay-100">
         <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="text-lg font-medium text-gray-300">Filter by:</span>
+            <span class="text-lg font-medium text-gray-700">Filter by:</span>
             <button 
-                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-blue-500/20 text-blue-400 border border-blue-500/50" 
+                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-emerald-500/15 text-emerald-700 border border-emerald-500/50" 
                 data-filter="all"
             >
                 All ({blogs.length})
@@ -25,7 +25,7 @@ const allTags = [...new Set(blogs.flatMap(blog => blog.data.tags || []))].sort()
                 const count = blogs.filter(b => b.data.tags?.includes(tag)).length;
                 return (
                     <button 
-                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-700/30 text-gray-400 border border-gray-600/50 hover:bg-gray-600/50 hover:text-gray-300 hover:border-gray-500/50" 
+                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-100/50 text-gray-500 border border-gray-300/50 hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50" 
                         data-filter={tag}
                     >
                         {tag} ({count})
@@ -69,12 +69,12 @@ const allTags = [...new Set(blogs.flatMap(blog => blog.data.tags || []))].sort()
                 
                 // Update active button
                 filterBtns.forEach(b => {
-                    b.classList.remove('active', 'bg-blue-500/20', 'text-blue-400', 'border-blue-500/50');
-                    b.classList.add('bg-gray-700/30', 'text-gray-400', 'border-gray-600/50', 'hover:bg-gray-600/50', 'hover:text-gray-300', 'hover:border-gray-500/50');
+                    b.classList.remove('active', 'bg-emerald-500/15', 'text-emerald-700', 'border-emerald-500/50');
+                    b.classList.add('bg-gray-100/50', 'text-gray-500', 'border-gray-300/50', 'hover:bg-gray-200/50', 'hover:text-gray-700', 'hover:border-gray-400/50');
                 });
                 
-                btn.classList.add('active', 'bg-blue-500/20', 'text-blue-400', 'border-blue-500/50');
-                btn.classList.remove('bg-gray-700/30', 'text-gray-400', 'border-gray-600/50', 'hover:bg-gray-600/50', 'hover:text-gray-300', 'hover:border-gray-500/50');
+                btn.classList.add('active', 'bg-emerald-500/15', 'text-emerald-700', 'border-emerald-500/50');
+                btn.classList.remove('bg-gray-100/50', 'text-gray-500', 'border-gray-300/50', 'hover:bg-gray-200/50', 'hover:text-gray-700', 'hover:border-gray-400/50');
 
                 // Filter projects
                 let visibleCount = 0;
@@ -94,7 +94,7 @@ const allTags = [...new Set(blogs.flatMap(blog => blog.data.tags || []))].sort()
                 });
 
                 // Update results count and show/hide no results
-                resultsCount.textContent = `${visibleCount} project${visibleCount !== 1 ? 's' : ''} found`;
+                resultsCount.textContent = `${visibleCount} blog${visibleCount !== 1 ? 's' : ''} found`;
                 
                 if (visibleCount === 0) {
                     noResults?.classList.remove('hidden');

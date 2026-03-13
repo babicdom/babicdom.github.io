@@ -3,7 +3,7 @@ const { title = "" } = Astro.props;
 import "../styles/global.css"
 ---
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray-900 text-gray-100">
+<html lang="en" class="bg-gray-50 text-gray-900">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,10 @@ import "../styles/global.css"
                 width: 100%;
                 height: 100%;
                 z-index: -1;
-                background: #111827; /* gray-900 base */
+                background: 
+                    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.15) 1px, transparent 0),
+                    #f9fafb; /* gray-50 base with subtle dot grid */
+                background-size: 24px 24px, auto;
                 overflow: hidden;
                 will-change: transform;
                 transform: translateZ(0);
@@ -34,14 +37,14 @@ import "../styles/global.css"
                 background: 
                     radial-gradient(
                         ellipse 800px 400px at -400px -200px,
-                        rgba(59, 130, 246, 0.20) 0%,
-                        rgba(147, 51, 234, 0.15) 40%,
+                        rgba(16, 185, 129, 0.12) 0%,
+                        rgba(245, 158, 11, 0.08) 40%,
                         transparent 70%
                     ),
                     radial-gradient(
                         ellipse 600px 300px at calc(100% + 300px) -150px,
-                        rgba(147, 51, 234, 0.18) 0%,
-                        rgba(16, 185, 129, 0.12) 40%,
+                        rgba(245, 158, 11, 0.10) 0%,
+                        rgba(20, 184, 166, 0.07) 40%,
                         transparent 70%
                     );
                 animation: wave-motion-edges 18s ease-in-out infinite;
@@ -58,14 +61,14 @@ import "../styles/global.css"
                 background: 
                     radial-gradient(
                         ellipse 700px 350px at -350px calc(100% + 175px),
-                        rgba(16, 185, 129, 0.16) 0%,
-                        rgba(59, 130, 246, 0.12) 40%,
+                        rgba(20, 184, 166, 0.10) 0%,
+                        rgba(16, 185, 129, 0.07) 40%,
                         transparent 70%
                     ),
                     radial-gradient(
                         ellipse 500px 250px at calc(100% + 250px) calc(100% + 125px),
-                        rgba(245, 101, 101, 0.14) 0%,
-                        rgba(147, 51, 234, 0.10) 40%,
+                        rgba(245, 158, 11, 0.08) 0%,
+                        rgba(20, 184, 166, 0.06) 40%,
                         transparent 70%
                     );
                 animation: wave-motion-edges 22s ease-in-out infinite reverse;
@@ -110,7 +113,7 @@ import "../styles/global.css"
             .orb-1 {
                 width: 200px;
                 height: 200px;
-                background: linear-gradient(45deg, rgba(59, 130, 246, 0.12), rgba(147, 51, 234, 0.08));
+                background: linear-gradient(45deg, rgba(16, 185, 129, 0.08), rgba(245, 158, 11, 0.05));
                 top: -50px;
                 left: -50px;
                 animation: float-1 20s ease-in-out infinite;
@@ -119,7 +122,7 @@ import "../styles/global.css"
             .orb-2 {
                 width: 180px;
                 height: 180px;
-                background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(16, 185, 129, 0.07));
+                background: linear-gradient(135deg, rgba(245, 158, 11, 0.07), rgba(20, 184, 166, 0.05));
                 top: -40px;
                 right: -40px;
                 animation: float-2 25s ease-in-out infinite reverse;
@@ -128,7 +131,7 @@ import "../styles/global.css"
             .orb-3 {
                 width: 160px;
                 height: 160px;
-                background: linear-gradient(225deg, rgba(16, 185, 129, 0.09), rgba(59, 130, 246, 0.06));
+                background: linear-gradient(225deg, rgba(20, 184, 166, 0.07), rgba(16, 185, 129, 0.05));
                 bottom: -30px;
                 right: -30px;
                 animation: float-3 18s ease-in-out infinite;
@@ -152,7 +155,7 @@ import "../styles/global.css"
             .orb-4 {
                 width: 140px;
                 height: 140px;
-                background: linear-gradient(315deg, rgba(245, 101, 101, 0.08), rgba(147, 51, 234, 0.05));
+                background: linear-gradient(315deg, rgba(245, 158, 11, 0.06), rgba(16, 185, 129, 0.04));
                 bottom: -35px;
                 left: -35px;
                 animation: float-4 23s ease-in-out infinite;
@@ -173,23 +176,23 @@ import "../styles/global.css"
         <div class="floating-orb orb-2"></div>
         <div class="floating-orb orb-3"></div>
         <div class="floating-orb orb-4"></div>
-        <header class="sticky top-0 z-50 w-full py-4 bg-gray-800/90 backdrop-blur-md border-b border-gray-700/30 shadow-lg shadow-black/20 mb-8">
+        <header class="sticky top-0 z-50 w-full py-4 bg-white/90 backdrop-blur-md border-b border-gray-200/60 shadow-lg shadow-gray-300/20 mb-8">
             <nav class="max-w-5xl mx-auto flex justify-between items-center px-4">
-                <a href="/" class="text-xl font-bold px-5 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-lg hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 backdrop-blur-sm bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <a href="/" class="text-xl font-bold px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 backdrop-blur-sm bg-linear-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">
                     Home Page
                 </a>
                 <div class="flex space-x-3">
-                    <a href="/projects" class="px-5 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-lg hover:bg-linear-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 hover:text-blue-300 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Projects</a>
-                    <a href="/blog" class="px-5 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-lg hover:bg-linear-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 hover:text-blue-300 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Blogs</a>
-                    <a href="/about" class="px-5 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-lg hover:bg-linear-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 hover:text-blue-300 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-medium backdrop-blur-sm">About</a>
+                    <a href="/projects" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Projects</a>
+                    <a href="/blog" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Blogs</a>
+                    <a href="/about" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">About</a>
                 </div>
             </nav>
         </header>
         <main class="flex-1 max-w-5xl mx-auto w-full px-4 py-5">
             <slot />
         </main>
-        <footer class="py-6 text-center border-t border-gray-800">
-            <p class="text-sm text-gray-500">© {new Date().getFullYear()} Dominik Babić</p>
+        <footer class="py-6 text-center border-t border-gray-200">
+            <p class="text-sm text-gray-400">© {new Date().getFullYear()} Dominik Babić</p>
         </footer>
         <script>
             // Enhanced click animations for links
