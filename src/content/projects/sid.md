@@ -45,15 +45,40 @@ Now, for you that doesn't sound too hard, right? You just look at the images, an
 
 For a machine, it's not that simple. The machine doesn't have eyes to see the images, it has to process them as numbers. So, it takes the pixel values of the images and feeds them into a neural network. The neural network then learns to recognize the patterns in the data and generates each pixel of the new image based on those patterns. It learns the distribution of the data, and generating new images is essentially sampling from that distribution. For some simpler datasets, like MNIST, which consists of images that are 28x28 pixels, that's shouldn't be too hard, but for more complex datasets, like ImageNet, which consists of images that are 224x224 pixels, it becomes much more challenging. The model has to learn a much more complex distribution, and it has to generate a much larger number of pixels.
 
-To tackle this problem, researchers have developed various architectures and techniques. Mostly, those techniques are based on the idea that, instead of learning the distribution of the data directly, we can learn to generate images by learning to transform a simple distribution (like a Gaussian distribution) into the complex distribution of the data. For example, each of the architectures I mentioned earlier (GANs, VAEs, Diffusion Models) has its own way of doing this transformation. GANs use a generator and a discriminator to learn this transformation, VAEs use an encoder and a decoder, and Diffusion Models use a process of adding noise to the data and then learning to reverse that process.
+To tackle this problem, researchers have developed various architectures and techniques, some based on the mathematical foundations of probability and statistics, some based on the principles of physics, and some just based on the intuitive understanding of the problem. Mostly, those techniques are based on the idea that, instead of learning the distribution of the data directly, we can learn to generate images by learning to transform a simple distribution (like a Gaussian distribution) into the complex distribution of the data. For example, each of the architectures I mentioned earlier (GANs, VAEs, Diffusion Models) has its own way of doing this transformation. GANs use a generator and a discriminator to learn this transformation, VAEs use an encoder and a decoder, and Diffusion Models use a process of adding noise to the data and then learning to reverse that process.
 
-That said, the field of generative models is vast and complex, and there are many different architectures and techniques that have been developed. The ones I mentioned are just a few examples, and there are many more out there. There's a lot of mathematics and theory behind these models, but I won't go into that in this article. If you're interested in learning more about the theory and mathematics behind generative models, I recommend you to check out some of the resources I will link at the end of this article, and my master's thesis, as well. :)
+That said, the field of generative models is vast and complex, and there are many architectures and techniques that have been developed. The ones I mentioned are just a few examples, and there are many more out there. There's a lot of mathematics and theory behind these models, but I won't go into that in this article. If you're interested in learning more about the theory and mathematics behind generative models, I recommend you to check out some resources I will link at the end of this article, and my master's thesis, as well. :)
 
-## Synthetic Image Detection
+## Synthetic Image Detection - or just "Detection of generated images"
 
-I'll first start by saying that this name is just a fancy and smart way to say "Detection of generated images". With the name of *SID*, you enclose a large group of methods that can be used for the task of detecting generated images.
+I'll first start by saying that this name is just a fancy and smart way to say "Detection of generated images". With the name of *SID*, you enclose a large group of methods that can be used for the task of detecting generated images, explaining the features of the images that can be used for detection, and also explaining the techniques that can be used to extract those features. The field of *SID* is still new, at least it was new when I started working on it, and there are still many open questions and challenges that need to be addressed.
 
-## How do Deep Learning Models See generated Images?
+While just defining the task of *SID* as "Detection of generated images" is technically correct, it doesn't capture the full scope of the field. *SID* is not just about detecting generated images, it's also about understanding the characteristics of those images, and developing techniques to extract those characteristics, while also addressing fundamental challenges of the field:
+- **Model-agnostic generalization**: The field of *SID* is not just about detecting images generated by a specific model, it's about developing techniques that can generalize to images generated by any model. This is a significant challenge, because different models can generate images with different characteristics, and the techniques that work for one model might not work for another.
+- **Robustness to image perturbations**: Another challenge in *SID* is ensuring that the detection methods are robust to various image perturbations, such as noise, compression, and other transformations that might be applied to the images. This is, of course, important because images on the internet often appear in the form of a derivative of the original image, or greatly compressed, edited, or even just a screenshot of the original image. Interestingly, in the paper ["Any-Resolution AI-Generated Image Detection by Spectral Learning"*](http://arxiv.org/abs/2411.19417), the authors noticed that even their method that had performed extremely well on the datasets commonly used for *SID* research, had a significant drop in performance when parts of synthetic images appeared in screenshots, memes, or even in the photographs of computer screens.
+
+<div style="display: flex; justify-content: center;">
+    <img alt="Screenshot" src="/assets/img/blog/sid_1.png" style="" loading="lazy"/>
+    <img alt="Meme" src="/assets/img/blog/sid_2.png" style="" loading="lazy"/>
+</div>
+<p style="text-align: center; font-style: italic; margin-top: 8px;">
+    Examples of generated images correctly detected by the method in the paper, but with a significant drop in performance when they appear in a screenshot and a photograph. Taken frorm the paper *.
+</p>
+
+- **Localized detection**: While being able to detect whether image is real or generated is our main goal, it's common that only parts of the image are generated, such as in the case of deepfakes. So, enabling fine-grained detection can cover those types of images as well, while providing more insights for better understanding the characteristics of generated images.
+- **Data-agnostic detection**: Most of the methods for *SID* are trained using both real and generated images, which means that not only do they rely on the existence of dataset of generated images, but they can also be biased towards the specific dataset they were trained on. That's why the focus should be on developing methods that can detect generated images without relying on specific datasets, and that can generalize to images generated by any model, even those that haven't been seen during training. 
+
+Okay, so that is what defines the field of *SID*, but the detection methods themselves still can differ greatly.
+
+### What do the methods for *SID* have in common?
+
+While I was gathering materials and reading through papers to summarize the field of *SID*, I noticed that most of the ideas and methods for tackling the challenges posed by the field follow similar architecture, but they mostly differ on these two parts:
+- **Feature extraction**
+- **Training paradigm**
+
+Feature extraction is a common word that is passed along when talking about any form of deep learning, it is an essential part of the process in which we extract specific characteristics from data that can help us in our goals.
+
+When it comes to the *SID*, features extracted from images are based on assumptions about the 
 
 ## Links
 - [Master's Thesis PDF](https://repozitorij.fer.unizg.hr/object/fer:13496/FILE0)

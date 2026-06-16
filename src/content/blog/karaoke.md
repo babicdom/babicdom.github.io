@@ -1,9 +1,9 @@
 ---
-title: "Self-hosting: Part 1"
-date: "2026-03-14"
-tags: ["Self-hosting", "Tech", "Personal"]
+title: "Karaoke system on Linux"
+date: "2026-04-13"
+tags: ["Tech", "Personal"]
 description: "First part of my journey into self-hosting and the lessons I've learned along the way."
-featured: true
+featured: false
 ---
 
 I'll be writing about the journey once I finish the project blog about Synthetic Image Detection
