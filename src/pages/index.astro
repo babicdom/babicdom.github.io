@@ -2,66 +2,75 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 const projects = await getCollection("projects");
-const featured = projects.filter((p) => p.data.featured);
+const featured = projects.filter((p: CollectionEntry<"projects">) => p.data.featured);
 
 const blogs = await getCollection("blog");
-const featuredBlogs = blogs.filter((b) => b.data.featured);
+const featuredBlogs = blogs.filter((b: CollectionEntry<"blog">) => b.data.featured);
+
+const tips = await getCollection("tips");
+tips.sort((a: CollectionEntry<"tips">, b: CollectionEntry<"tips">) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const latestTip = tips[0] ?? null;
 ---
-<BaseLayout title="Home">
-    <section class="text-center py-8 fade-in-up">
-        <div class="relative mb-6">
-            <h1 class="text-6xl font-bold mb-8 gradient-text leading-tight">
-                Dominik Babić
-            </h1>
-            <div class="absolute -inset-4 bg-linear-to-r from-emerald-500/10 via-amber-500/10 to-emerald-500/10 blur-3xl -z-10 opacity-50"></div>
-        </div>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            <span class="text-emerald-600 font-semibold">Machine Learning</span> • 
-            <span class="text-amber-600 font-semibold">Deep Learning</span> • 
-            <span class="text-teal-600 font-semibold">Robotics and Automation</span>
-        </p>
+<BaseLayout title="Dominik Babić">
+    <section class="pt-4 pb-10 fade-in-up">
+        <p class="text-gray-400 text-sm tracking-wide uppercase font-medium">Archive on some of my findings and projects which I wanted to share</p>
     </section>
 
-    <section class="mb-16 fade-in-up delay-100">
-        <div class="flex items-center gap-3 mb-8">
-            <h2 class="text-4xl font-bold">Featured Projects</h2>
-            <div class="flex-1 h-px bg-linear-to-r from-emerald-500/50 to-transparent"></div>
+    {latestTip && (
+        <section class="mb-14 fade-in-up">
+            <div class="border border-gray-200 rounded-xl p-7 bg-white/70 backdrop-blur-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-amber-500 text-sm">✦</span>
+                    <span class="text-xs font-semibold tracking-widest uppercase text-gray-400">Tip of the month</span>
+                    <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20">
+                        {latestTip.data.category}
+                    </span>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">{latestTip.data.title}</h2>
+                <p class="text-gray-600 leading-relaxed text-sm">{latestTip.data.summary}</p>
+            </div>
+        </section>
+    )}
+
+    <section class="mb-14 fade-in-up delay-100">
+        <div class="flex items-center gap-3 mb-7">
+            <h2 class="text-2xl font-semibold text-gray-900">Featured Projects</h2>
+            <div class="flex-1 h-px bg-gray-200"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 auto-rows-min">
-            {
-                featured.map((project) => (
-                    <ProjectCard 
-                        title={project.data.title} 
-                        description={project.data.description} 
-                        github={project.data.github}
-                        link={`/projects/${project.slug}`}
-                        hasDetailPage={project.data.hasDetailPage}
-                        tags={project.data.tags}
-                    />
-                ))
-            }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {featured.map((project: CollectionEntry<"projects">) => (
+                <ProjectCard
+                    title={project.data.title}
+                    description={project.data.description}
+                    github={project.data.github}
+                    link={`/projects/${project.slug}`}
+                    hasDetailPage={project.data.hasDetailPage}
+                    tags={project.data.tags}
+                />
+            ))}
         </div>
     </section>
-    
+
     <section class="fade-in-up delay-200">
-        <div class="flex items-center gap-3 mb-8">
-            <h2 class="text-4xl font-bold">Featured Blogs</h2>
-            <div class="flex-1 h-px bg-linear-to-r from-amber-500/50 to-transparent"></div>
+        <div class="flex items-center gap-3 mb-7">
+            <h2 class="text-2xl font-semibold text-gray-900">Featured Blogs</h2>
+            <div class="flex-1 h-px bg-gray-200"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 auto-rows-min">
-            {
-                featuredBlogs.map((blog) => (
-                    <ProjectCard 
-                        title={blog.data.title} 
-                        description={blog.data.description} 
-                        link={`/blog/${blog.slug}`}
-                        hasDetailPage={true}
-                        tags={blog.data.tags}
-                    />
-                ))
-            }
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {featuredBlogs.map((blog: CollectionEntry<"blog">) => (
+                <ProjectCard
+                    title={blog.data.title}
+                    description={blog.data.description}
+                    link={`/blog/${blog.slug}`}
+                    hasDetailPage={true}
+                    tags={blog.data.tags}
+                />
+            ))}
         </div>
     </section>
 </BaseLayout>

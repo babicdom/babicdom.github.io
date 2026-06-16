@@ -10,6 +10,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).optional(),
     description: z.string().optional(),
     featured: z.boolean().optional(),
+    type: z.enum(["tech", "personal"]).default("tech"),
   }),
 });
 
@@ -28,7 +29,20 @@ const projects = defineCollection({
   }),
 });
 
+const tips = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+      message: "Invalid date format",
+    }),
+    category: z.enum(["Tech", "Running", "Research"]),
+    summary: z.string(),
+  }),
+});
+
 export const collections = {
   blog,
   projects,
+  tips,
 };

@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
+@theme {
+  --font-sans: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'IBM Plex Serif', ui-serif, Georgia, serif;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -22,6 +31,7 @@
 /* Smooth page transitions */
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -138,6 +148,20 @@ body {
   outline: 2px solid #10b981;
   outline-offset: 2px;
   border-radius: 0.5rem;
+}
+
+/* Nav link — shared pill style for header navigation */
+.nav-link {
+  @apply px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg
+         hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10
+         hover:border-emerald-500/50 hover:text-emerald-700
+         hover:shadow-lg hover:shadow-emerald-500/20
+         transition-all duration-300 font-medium backdrop-blur-sm;
+}
+
+.nav-link:active {
+  @apply scale-95;
+  filter: brightness(0.9);
 }
 
 /* Text gradient animation */

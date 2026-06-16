@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import ToggleNav from "../../../components/ToggleNav.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+type BlogEntry = CollectionEntry<"blog">;
+
+const allBlogs = await getCollection("blog");
+const blogs = allBlogs
+    .filter((b: BlogEntry) => b.data.type === "tech")
+    .sort((a: BlogEntry, b: BlogEntry) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+    );
+
+const allTags = [...new Set(blogs.flatMap((b: BlogEntry) => b.data.tags || []))].sort();
+
+const toggleOptions = [
+    { label: "Tech", href: "/blog/tech" },
+    { label: "Personal", href: "/blog/personal" },
+];
+---
+<BaseLayout title="Tech Blogs">
+    <div class="flex items-start justify-between mb-6">
+        <div>
+            <h1 data-no-toggle-anim class="text-4xl font-bold mb-2 fade-in-up">Blogs</h1>
+            <p class="text-gray-500 fade-in-up">Writing on computing, machine learning, and research.</p>
+        </div>
+        <ToggleNav options={toggleOptions} active="/blog/tech" transitionName="blog-toggle" />
+    </div>
+
+    <div class="mb-8 fade-in-up delay-100">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="text-sm font-medium text-gray-500">Filter by:</span>
+            <button
+                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-emerald-500/15 text-emerald-700 border border-emerald-500/50"
+                data-filter="all"
+            >
+                All ({blogs.length})
+            </button>
+            {allTags.map(tag => {
+                const count = blogs.filter((b) => b.data.tags?.includes(tag)).length;
+                return (
+                    <button
+                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-100/50 text-gray-500 border border-gray-300/50 hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50"
+                        data-filter={tag}
+                    >
+                        {tag} ({count})
+                    </button>
+                );
+            })}
+        </div>
+        <span id="results-count" class="text-sm text-gray-400">{blogs.length} post{blogs.length !== 1 ? "s" : ""}</span>
+    </div>
+
+    <div id="blogs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 fade-in-up delay-200">
+        {blogs.map((blog) => (
+            <div class="blog-item" data-tags={JSON.stringify(blog.data.tags || [])}>
+                <ProjectCard
+                    title={blog.data.title}
+                    description={blog.data.description}
+                    link={`/blog/${blog.slug}`}
+                    hasDetailPage={true}
+                    tags={blog.data.tags}
+                />
+            </div>
+        ))}
+    </div>
+
+    {blogs.length === 0 && (
+        <div class="text-center py-16 text-gray-400 fade-in-up">
+            <p class="text-lg">No tech posts yet. Check back soon.</p>
+        </div>
+    )}
+
+    <div id="no-results" class="hidden text-center py-16 text-gray-400 fade-in-up">
+        <p class="text-lg">No posts match that tag.</p>
+    </div>
+
+    <script>
+        import { initFilter } from '../../../scripts/filterGrid';
+        initFilter({
+            itemSelector: '.blog-item',
+            gridId: 'blogs-grid',
+            noResultsId: 'no-results',
+            resultsCountId: 'results-count',
+            labelSingular: 'post',
+            labelPlural: 'posts',
+        });
+    </script>
+</BaseLayout>

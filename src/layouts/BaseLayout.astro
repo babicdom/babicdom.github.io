@@ -1,15 +1,19 @@
 ---
 const { title = "" } = Astro.props;
-import "../styles/global.css"
+import "../styles/global.css";
+import { ViewTransitions } from "astro:transitions";
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-gray-50 text-gray-900">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
+        <ViewTransitions />
         <style>
             /* Dynamic Background Waves */
             .dynamic-bg {
@@ -19,14 +23,11 @@ import "../styles/global.css"
                 width: 100%;
                 height: 100%;
                 z-index: -1;
-                background: 
+                background:
                     radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.15) 1px, transparent 0),
                     #f9fafb; /* gray-50 base with subtle dot grid */
                 background-size: 24px 24px, auto;
                 overflow: hidden;
-                will-change: transform;
-                transform: translateZ(0);
-                backface-visibility: hidden;
             }
             
             .dynamic-bg::before {
@@ -34,7 +35,7 @@ import "../styles/global.css"
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                background: 
+                background:
                     radial-gradient(
                         ellipse 800px 400px at -400px -200px,
                         rgba(16, 185, 129, 0.12) 0%,
@@ -51,6 +52,7 @@ import "../styles/global.css"
                 filter: blur(40px);
                 top: 0;
                 left: 0;
+                will-change: transform, opacity;
             }
             
             .dynamic-bg::after {
@@ -58,7 +60,7 @@ import "../styles/global.css"
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                background: 
+                background:
                     radial-gradient(
                         ellipse 700px 350px at -350px calc(100% + 175px),
                         rgba(20, 184, 166, 0.10) 0%,
@@ -76,6 +78,7 @@ import "../styles/global.css"
                 bottom: 0;
                 right: 0;
                 animation-delay: -11s;
+                will-change: transform, opacity;
             }
             
             @keyframes wave-motion-edges {
@@ -106,8 +109,6 @@ import "../styles/global.css"
                 filter: blur(40px);
                 opacity: 0.4;
                 will-change: transform;
-                transform: translateZ(0);
-                backface-visibility: hidden;
             }
             
             .orb-1 {
@@ -178,13 +179,13 @@ import "../styles/global.css"
         <div class="floating-orb orb-4"></div>
         <header class="sticky top-0 z-50 w-full py-4 bg-white/90 backdrop-blur-md border-b border-gray-200/60 shadow-lg shadow-gray-300/20 mb-8">
             <nav class="max-w-5xl mx-auto flex justify-between items-center px-4">
-                <a href="/" class="text-xl font-bold px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 backdrop-blur-sm bg-linear-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">
-                    Home Page
+                <a href="/" class="text-lg font-semibold tracking-tight text-gray-800 hover:text-emerald-700 transition-colors duration-200">
+                    Dominik Babić
                 </a>
                 <div class="flex space-x-3">
-                    <a href="/projects" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Projects</a>
-                    <a href="/blog" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">Blogs</a>
-                    <a href="/about" class="px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10 hover:border-emerald-500/50 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 font-medium backdrop-blur-sm">About</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/blog/tech" class="nav-link">Blogs</a>
+                    <a href="/about/tech" class="nav-link">About</a>
                 </div>
             </nav>
         </header>
@@ -195,35 +196,19 @@ import "../styles/global.css"
             <p class="text-sm text-gray-400">© {new Date().getFullYear()} Dominik Babić</p>
         </footer>
         <script>
-            // Enhanced click animations for links
-            document.addEventListener('DOMContentLoaded', function() {
-                const links = document.querySelectorAll('a');
-                
-                links.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        // Create a temporary visual feedback
-                        this.style.transform = 'scale(0.95)';
-                        this.style.filter = 'brightness(0.8)';
-                        
-                        setTimeout(() => {
-                            this.style.transform = '';
-                            this.style.filter = '';
-                        }, 150);
-                        
-                        // Add a subtle bounce animation
-                        this.classList.add('animate-bounce-gentle');
-                        setTimeout(() => {
-                            this.classList.remove('animate-bounce-gentle');
-                        }, 1000);
+            document.addEventListener('astro:before-swap', (e) => {
+                const from = (e as any).from?.pathname ?? '';
+                const to = (e as any).to?.pathname ?? '';
+                const isSectionToggle =
+                    (from.startsWith('/blog') && to.startsWith('/blog')) ||
+                    (from.startsWith('/about') && to.startsWith('/about'));
+                if (isSectionToggle) {
+                    (e as any).newDocument.querySelectorAll('[data-no-toggle-anim]').forEach((el: HTMLElement) => {
+                        el.style.animation = 'none';
+                        el.style.opacity = '1';
+                        el.style.transform = 'none';
                     });
-                });
-                
-                // Initialize fade-in animations after DOM is ready
-                const fadeElements = document.querySelectorAll('.fade-in-up');
-                fadeElements.forEach(element => {
-                    // Force a reflow to ensure initial styles are applied
-                    (element as HTMLElement).offsetHeight;
-                });
+                }
             });
         </script>
     </body>

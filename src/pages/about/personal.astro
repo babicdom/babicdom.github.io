@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ToggleNav from "../../components/ToggleNav.astro";
+import { Image } from "astro:assets";
+
+const toggleOptions = [
+    { label: "Tech", href: "/about/tech" },
+    { label: "Personal", href: "/about/personal" },
+];
+---
+<BaseLayout title="About — Personal">
+    <!-- Hero -->
+    <div class="relative mb-16">
+        <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-linear-to-r from-emerald-500 to-amber-500 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <Image transition:name="about-photo" src="/assets/img/personal_img.jpg" alt="profile" width={36} height={36} loading="eager" class="relative w-36 h-36 rounded-full border-2 border-gray-300 group-hover:border-emerald-500 transition-all duration-300"/>
+            </div>
+            <div class="text-center md:text-left flex-1">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
+                    <h1 data-no-toggle-anim class="text-5xl font-bold bg-linear-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent fade-in-up">About Me</h1>
+                    <ToggleNav options={toggleOptions} active="/about/personal" transitionName="about-toggle" />
+                </div>
+                <p class="text-xl text-emerald-600 font-medium fade-in-up">Runner • Gamer • Occasional Reader</p>
+            </div>
+        </div>
+
+        <div class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+            <p class="text-gray-700 leading-8 text-lg mb-4">
+                This is the part of the page where I get to drop the résumé language. I'm Dominik — I write code for a living, run competitively for fun, and spend more time thinking about both than I probably should.
+            </p>
+            <p class="text-gray-700 leading-8 text-lg mb-4">
+                I grew up in Croatia and have since lived and studied in Sweden, worked in the Czech Republic, and raced across a good chunk of Europe. I like moving around, both literally and figuratively.
+            </p>
+            <p class="text-gray-700 leading-8 text-lg">
+                This side of the site is where I write about things that don't fit neatly into a CV — race reports, trips, things I've been reading, things I've been thinking about. Fill this in with your own words whenever you're ready.
+            </p>
+        </div>
+    </div>
+
+    <!-- Running Section -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 fade-in-up">Running</h2>
+        <div class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+            <p class="text-gray-700 leading-8 text-lg mb-6">
+                I'm a competitive middle- and long-distance runner, member of <a href="https://www.akkvarner.hr/" target="_blank" class="text-emerald-600 hover:underline font-medium">AK Kvarner</a>. I race distances from 400m to the marathon, mostly at Croatian and European competitions.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="text-center p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="text-2xl font-bold text-gray-900 mb-1">400m</p>
+                    <p class="text-sm text-gray-400">shortest race</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="text-2xl font-bold text-gray-900 mb-1">42km</p>
+                    <p class="text-sm text-gray-400">longest race</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="text-2xl font-bold text-gray-900 mb-1">—</p>
+                    <p class="text-sm text-gray-400">1500m PB</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="text-2xl font-bold text-gray-900 mb-1">—</p>
+                    <p class="text-sm text-gray-400">half marathon PB</p>
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm italic">Replace the PB placeholders with your actual times, and add race reports in the personal blog.</p>
+            <div class="mt-6">
+                <a class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FC5200] hover:bg-[#E04A00] text-white rounded-full transition-all duration-300 hover:scale-105 text-sm font-medium" href='https://strava.com/athletes/72844955' target="_blank">
+                    <Image src='https://badges.strava.com/logo-strava.png' alt='Strava' height=13 width=51 />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 fade-in-up">Outside running</h2>
+        <div class="grid md:grid-cols-2 gap-6 fade-in-up">
+            <div class="bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Gaming</h3>
+                <p class="text-gray-600 leading-relaxed">Mostly FIFA, occasionally something else on Steam when a game catches my eye. Not a serious gamer — just something to switch off with.</p>
+            </div>
+            <div class="bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Reading</h3>
+                <p class="text-gray-600 leading-relaxed">I read more non-fiction than fiction, mostly science, history, and the occasional biography. Thought it would make me a better writer. The jury's still out.</p>
+            </div>
+            <div class="bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Travel</h3>
+                <p class="text-gray-600 leading-relaxed">A lot of my travel is race-motivated — showing up in a new city, running a race, exploring the surroundings. Add your trips and destinations here.</p>
+            </div>
+            <div class="bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Coffee</h3>
+                <p class="text-gray-600 leading-relaxed">Placeholder — add something here that feels right, or remove this card entirely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect -->
+    <section class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300">
+        <h2 class="text-3xl font-bold mb-4 text-center">Say hello</h2>
+        <p class="text-center text-gray-600 mb-6">Whether it's to talk running, life, or anything in between.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="mailto:babic.dominik13@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full transition-all duration-300 hover:scale-105">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                Email
+            </a>
+            <a href="https://www.strava.com/athletes/72844955" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-[#FC5200] hover:bg-[#E04A00] text-white rounded-full transition-all duration-300 hover:scale-105">
+                <Image src='https://badges.strava.com/logo-strava.png' alt='Strava' height=13 width=51 />
+            </a>
+        </div>
+    </section>
+</BaseLayout>
