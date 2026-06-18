@@ -178,3 +178,21 @@ body {
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease infinite;
 }
+
+/* Profile photo view transition — cross-fade with scale */
+::view-transition-old(about-photo) {
+  animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-out;
+}
+::view-transition-new(about-photo) {
+  animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-in;
+}
+
+@keyframes vt-photo-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.85); }
+}
+
+@keyframes vt-photo-in {
+  from { opacity: 0; transform: scale(1.15); }
+  to   { opacity: 1; transform: scale(1); }
+}
