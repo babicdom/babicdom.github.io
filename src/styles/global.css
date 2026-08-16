@@ -173,6 +173,29 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
 }
 
+/* Markdown images written on one line form a centered side-by-side row;
+   an italic paragraph directly after acts as its caption. */
+.prose p:has(> img + img) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.prose p:has(> img + img) img {
+  width: calc(50% - 0.5rem);
+  min-width: 240px;
+  height: auto;
+  margin: 0;
+}
+
+.prose p:has(> img + img) + p:has(> em:only-child) {
+  text-align: center;
+  font-size: 0.875em;
+  color: var(--faint);
+  margin-top: 0.75em;
+}
+
 /* ---------------------------------------------------------------------------
    Motion — rare and quick; fully disabled for reduced-motion users
 --------------------------------------------------------------------------- */
