@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import IndexEntry from "../components/IndexEntry.astro";
+import { inlineMd } from "../scripts/inlineMd";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -52,7 +53,7 @@ const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
                     <span class="text-accent">{latestTip.data.category}</span>
                 </div>
                 <h2 class="font-serif text-lg font-semibold mt-3">{latestTip.data.title}</h2>
-                <p class="text-sm text-muted leading-relaxed mt-1.5">{latestTip.data.summary}</p>
+                <p class="md-inline text-sm text-muted leading-relaxed mt-1.5" set:html={inlineMd(latestTip.data.summary)} />
             </div>
         </section>
     )}
