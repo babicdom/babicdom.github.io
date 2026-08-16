@@ -18,6 +18,17 @@ const linked = Boolean(hasDetailPage && link);
 ---
 <article class="entry group relative border-b border-line py-5" data-tags={JSON.stringify(tags || [])}>
     <div class="flex items-start gap-5">
+        {image && (
+            <Image
+                src={image}
+                alt=""
+                width={128}
+                height={88}
+                densities={[1, 2]}
+                loading="lazy"
+                class="hidden sm:block w-32 h-22 object-cover rounded-xs border border-line shrink-0 group-hover:border-faint transition-colors duration-150"
+            />
+        )}
         <div class="flex-1 min-w-0">
             <div class="flex items-baseline justify-between gap-4">
                 <h3 class="font-serif text-lg font-semibold leading-snug">
@@ -56,17 +67,5 @@ const linked = Boolean(hasDetailPage && link);
                 )}
             </div>
         </div>
-
-        {image && (
-            <Image
-                src={image}
-                alt=""
-                width={128}
-                height={88}
-                densities={[1, 2]}
-                loading="lazy"
-                class="hidden sm:block w-32 h-22 object-cover rounded-xs border border-line shrink-0 group-hover:border-faint transition-colors duration-150"
-            />
-        )}
     </div>
 </article>
