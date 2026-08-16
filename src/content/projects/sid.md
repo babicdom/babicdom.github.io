@@ -77,7 +77,10 @@ Feature extraction is a common word that is passed along when talking about any 
 
 When it comes to the *SID*, features extracted from images are based on the assumptions about the generators, i.e., that the images they create share some signs that tell them apart from real one. It is as if you're trying to tell an original Picasso from a fake one; there are some "ways" in which Picasso specifically drew that can't be copied by any other artist.
 
-
+In case of generative models, these features are separated into these categories based on the abstraction:
+- Low-level artifacts: *Pixel-level statistical anomalies (e.g., spectral distortions)*
+- Mid-level artifacts: *Texture patterns and local correlation inconsistencies*
+- High-level artifacts: *Semantic or conceptual anomalies (e.g., physically implausible objects)*
 
 ## Links
 - [Master's Thesis PDF](https://repozitorij.fer.unizg.hr/object/fer:13496/FILE0)
