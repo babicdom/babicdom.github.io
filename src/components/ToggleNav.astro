@@ -3,10 +3,11 @@ export interface Props {
     options: { label: string; href: string }[];
     active: string;
     transitionName: string;
+    class?: string;
 }
-const { options, active, transitionName } = Astro.props;
+const { options, active, transitionName, class: className } = Astro.props;
 ---
-<div class="inline-flex items-center border border-line rounded-xs overflow-hidden font-mono text-xs uppercase tracking-wider">
+<div class:list={["inline-flex w-fit items-center border border-line rounded-xs overflow-hidden font-mono text-xs uppercase tracking-wider", className]}>
     {options.map(opt => {
         const isActive = opt.href === active;
         return isActive ? (

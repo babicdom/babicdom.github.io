@@ -75,7 +75,9 @@ While I was gathering materials and reading through papers to summarize the fiel
 
 Feature extraction is a common word that is passed along when talking about any form of deep learning, it is an essential part of the process in which we extract specific characteristics from data that can help us in our goals.
 
-When it comes to the *SID*, features extracted from images are based on assumptions about the 
+When it comes to the *SID*, features extracted from images are based on the assumptions about the generators, i.e., that the images they create share some signs that tell them apart from real one. It is as if you're trying to tell an original Picasso from a fake one; there are some "ways" in which Picasso specifically drew that can't be copied by any other artist.
+
+
 
 ## Links
 - [Master's Thesis PDF](https://repozitorij.fer.unizg.hr/object/fer:13496/FILE0)
