@@ -1,14 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import IndexEntry from "../components/IndexEntry.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 const projects = await getCollection("projects");
-const featured = projects.filter((p: CollectionEntry<"projects">) => p.data.featured);
+const featured = projects
+    .filter((p: CollectionEntry<"projects">) => p.data.featured)
+    .sort((a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const blogs = await getCollection("blog");
-const featuredBlogs = blogs.filter((b: CollectionEntry<"blog">) => b.data.featured);
+const featuredBlogs = blogs
+    .filter((b: CollectionEntry<"blog">) => b.data.featured)
+    .sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const tips = await getCollection("tips");
 tips.sort((a: CollectionEntry<"tips">, b: CollectionEntry<"tips">) =>
@@ -25,36 +31,45 @@ const latestTip = currentMonthTip ?? tips[0] ?? null;
 const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
 ---
 <BaseLayout title="Dominik Babić">
-    <section class="pt-4 pb-10 fade-in-up">
-        <p class="text-gray-400 text-sm tracking-wide uppercase font-medium">Archive on some of my findings and projects which I wanted to share</p>
+    <!-- Hero -->
+    <section class="pt-4 pb-12 fade-in-up">
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight">Dominik Babić</h1>
+        <p class="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-faint">
+            AI engineer · computer vision · distance runner
+        </p>
+        <p class="mt-5 text-muted leading-relaxed max-w-[62ch]">
+            An archive of findings, projects and notes — machine learning, security,
+            self-hosting, and the occasional race report.
+        </p>
     </section>
 
     {latestTip && (
-        <section class="mb-14 fade-in-up">
-            <div class="border border-gray-200 rounded-xl p-7 bg-white/70 backdrop-blur-sm">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-amber-500 text-sm">✦</span>
-                    <span class="text-xs font-semibold tracking-widest uppercase text-gray-400">{tipLabel}</span>
-                    <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20">
-                        {latestTip.data.category}
-                    </span>
+        <section class="mb-14 fade-in-up delay-100" aria-label={tipLabel}>
+            <div class="border-y border-line py-5">
+                <div class="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 bg-pop inline-block" aria-hidden="true"></span>
+                    <span class="text-faint">{tipLabel}</span>
+                    <span class="text-accent">{latestTip.data.category}</span>
                 </div>
-                <h2 class="text-xl font-semibold text-gray-900 mb-3">{latestTip.data.title}</h2>
-                <p class="text-gray-600 leading-relaxed text-sm">{latestTip.data.summary}</p>
+                <h2 class="font-serif text-lg font-semibold mt-3">{latestTip.data.title}</h2>
+                <p class="text-sm text-muted leading-relaxed mt-1.5">{latestTip.data.summary}</p>
             </div>
         </section>
     )}
 
-    <section class="mb-14 fade-in-up delay-100">
-        <div class="flex items-center gap-3 mb-7">
-            <h2 class="text-2xl font-semibold text-gray-900">Featured Projects</h2>
-            <div class="flex-1 h-px bg-gray-200"></div>
+    <!-- Featured projects -->
+    <section class="mb-14 fade-in-up delay-200">
+        <div class="flex items-baseline gap-3 mb-1">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">01</span>
+            <h2 class="font-serif text-2xl font-semibold">Selected projects</h2>
+            <a href="/projects" class="ml-auto font-mono text-xs text-muted hover:text-accent transition-colors duration-150">all →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
             {featured.map((project: CollectionEntry<"projects">) => (
-                <ProjectCard
+                <IndexEntry
                     title={project.data.title}
                     description={project.data.description}
+                    date={project.data.date}
                     github={project.data.github}
                     link={`/projects/${project.id}`}
                     hasDetailPage={project.data.hasDetailPage}
@@ -64,16 +79,19 @@ const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
         </div>
     </section>
 
-    <section class="fade-in-up delay-200">
-        <div class="flex items-center gap-3 mb-7">
-            <h2 class="text-2xl font-semibold text-gray-900">Featured Blogs</h2>
-            <div class="flex-1 h-px bg-gray-200"></div>
+    <!-- Featured writing -->
+    <section class="fade-in-up delay-300">
+        <div class="flex items-baseline gap-3 mb-1">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">02</span>
+            <h2 class="font-serif text-2xl font-semibold">Selected writing</h2>
+            <a href="/blog/tech" class="ml-auto font-mono text-xs text-muted hover:text-accent transition-colors duration-150">all →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
             {featuredBlogs.map((blog: CollectionEntry<"blog">) => (
-                <ProjectCard
+                <IndexEntry
                     title={blog.data.title}
                     description={blog.data.description}
+                    date={blog.data.date}
                     link={`/blog/${blog.id}`}
                     hasDetailPage={true}
                     tags={blog.data.tags}

@@ -1,0 +1,52 @@
+---
+export interface Props {
+    title: string;
+    description?: string;
+    date?: string;
+    tags?: string[];
+    github?: string;
+    link?: string;
+    hasDetailPage?: boolean;
+}
+
+const { title, description, date, tags, github, link, hasDetailPage } = Astro.props;
+const linked = Boolean(hasDetailPage && link);
+---
+<article class="entry group relative border-b border-line py-5" data-tags={JSON.stringify(tags || [])}>
+    <div class="flex items-baseline justify-between gap-4">
+        <h3 class="font-serif text-lg font-semibold leading-snug">
+            {linked ? (
+                <a href={link} class="text-ink group-hover:text-accent transition-colors duration-150 after:absolute after:inset-0">
+                    {title}
+                </a>
+            ) : (
+                <span class="text-ink">{title}</span>
+            )}
+        </h3>
+        {date && <time datetime={date} class="font-mono text-xs text-faint tabular-nums shrink-0">{date}</time>}
+    </div>
+
+    {description && <p class="text-sm text-muted leading-relaxed mt-1.5 max-w-[62ch]">{description}</p>}
+
+    <div class="mt-2.5 flex items-center gap-4 font-mono text-xs">
+        {tags && tags.length > 0 && (
+            <span class="text-faint">{tags.join(" · ")}</span>
+        )}
+        {github && (
+            <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="relative z-10 text-muted hover:text-accent transition-colors duration-150"
+                title={`Source code for ${title}`}
+            >
+                [src]
+            </a>
+        )}
+        {linked && (
+            <span aria-hidden="true" class="ml-auto text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                read →
+            </span>
+        )}
+    </div>
+</article>

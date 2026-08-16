@@ -12,16 +12,18 @@ export interface Props {
 const { institution = "University of Zagreb, Croatia", degree = "Master of Science in Computer Science", specialization, description, list, startDate = "2022", endDate = "2024" } = Astro.props;
 ---
 <div class="grow">
-    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-        <h3 class="text-xl font-semibold text-emerald-600">{degree}</h3>
-        <span class="text-gray-500 text-sm mt-1 sm:mt-0 font-medium">{startDate} - {endDate}</span>
+    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+        <h3 class="font-serif text-lg font-semibold text-ink">{degree}</h3>
+        <span class="font-mono text-xs text-faint tabular-nums shrink-0">{startDate}–{endDate}</span>
     </div>
-    <p class="text-gray-700 font-medium mb-1">{institution}</p>
-    {specialization && <p class="text-gray-500 text-sm mb-3">Specialization in {specialization}</p>}
-    {description && <p class="text-gray-700 text-sm leading-relaxed">{description}</p>}
-    {
-        list && (list.map((item) => {
-            return <p class="text-gray-700 text-sm leading-relaxed">• {item}</p>;
-        }))
-    }
+    <p class="text-sm text-muted font-medium mb-1">{institution}</p>
+    {specialization && <p class="font-mono text-xs text-accent mb-2">{specialization}</p>}
+    {description && <p class="text-sm text-muted leading-relaxed">{description}</p>}
+    {list && (
+        <ul class="mt-1.5 space-y-1">
+            {list.map((item) => (
+                <li class="text-sm text-muted leading-relaxed pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-faint">{item}</li>
+            ))}
+        </ul>
+    )}
 </div>

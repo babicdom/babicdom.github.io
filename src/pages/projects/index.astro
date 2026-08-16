@@ -1,27 +1,31 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
+import IndexEntry from "../../components/IndexEntry.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+type ProjectEntry = CollectionEntry<"projects">;
 
 const projects = await getCollection("projects");
-projects.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+projects.sort((a: ProjectEntry, b: ProjectEntry) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const allTags = [...new Set(projects.flatMap(project => project.data.tags || []))].sort();
+const allTags = [...new Set(projects.flatMap((p: ProjectEntry) => p.data.tags || []))].sort();
 ---
-<BaseLayout title="Projects" description="ML, cybersecurity and research work, together with personal projects.">
-    <div class="fade-in-up">
-        <h1 class="text-4xl font-bold mb-4">Projects</h1>
-        <p class="text-gray-500 mb-8">A collection of my ML, Cybersecurity, and research work together with my personal projects.</p>
+<BaseLayout title="Projects — Dominik Babić" description="ML, cybersecurity and research work, together with personal projects.">
+    <div class="fade-in-up mb-8">
+        <h1 class="font-serif text-4xl font-bold tracking-tight mb-3">Projects</h1>
+        <p class="text-muted max-w-[62ch]">ML, cybersecurity and research work, together with personal projects.</p>
     </div>
 
-    <div class="mb-8 fade-in-up delay-100">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="text-lg font-medium text-gray-700">Filter by:</span>
+    <div class="mb-6 fade-in-up delay-100">
+        <div class="flex flex-wrap items-center gap-2 mb-3" role="group" aria-label="Filter projects by tag">
+            <span class="font-mono text-xs uppercase tracking-widest text-faint mr-1">filter</span>
             <button class="filter-btn active" data-filter="all" aria-pressed="true">
-                All ({projects.length})
+                all ({projects.length})
             </button>
             {allTags.map((tag) => {
-                const count = projects.filter(p => p.data.tags?.includes(tag)).length;
+                const count = projects.filter((p: ProjectEntry) => p.data.tags?.includes(tag)).length;
                 return (
                     <button class="filter-btn" data-filter={tag} aria-pressed="false">
                         {tag} ({count})
@@ -29,45 +33,31 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags || [])
                 );
             })}
         </div>
-        <div class="flex items-center gap-2 text-sm text-gray-500">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span id="results-count">{projects.length} projects found</span>
-        </div>
+        <span id="results-count" class="font-mono text-xs text-faint" aria-live="polite">{projects.length} projects found</span>
     </div>
 
-    <!-- Projects Grid -->
-    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-200">
-        {
-            projects.map((project) => (
-                <ProjectCard
-                    title={project.data.title}
-                    description={project.data.description}
-                    github={project.data.github}
-                    hasDetailPage={project.data.hasDetailPage}
-                    link={`/projects/${project.id}`}
-                    tags={project.data.tags}
-                />
-            ))
-        }
+    <div id="projects-grid" class="border-t border-line fade-in-up delay-200">
+        {projects.map((project: ProjectEntry) => (
+            <IndexEntry
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.date}
+                github={project.data.github}
+                hasDetailPage={project.data.hasDetailPage}
+                link={`/projects/${project.id}`}
+                tags={project.data.tags}
+            />
+        ))}
     </div>
 
-    <!-- No results message -->
-    <div id="no-results" class="hidden text-center py-12 fade-in-up delay-300">
-        <div class="text-gray-400 mb-4">
-            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            <h3 class="text-xl font-semibold mb-2">No projects found</h3>
-            <p>Try selecting a different tag or view all projects.</p>
-        </div>
+    <div id="no-results" class="hidden py-16 text-center fade-in-up">
+        <p class="font-mono text-sm text-faint">// no projects match that tag</p>
     </div>
 
     <script>
         import { initFilter } from '../../scripts/filterGrid';
         initFilter({
-            itemSelector: '.project-item',
+            itemSelector: '.entry',
             gridId: 'projects-grid',
             noResultsId: 'no-results',
             resultsCountId: 'results-count',

@@ -10,185 +10,183 @@ const toggleOptions = [
     { label: "Personal", href: "/about/personal" },
 ];
 ---
-<BaseLayout title="About — Tech">
-    <!-- Hero Section -->
-    <div class="relative mb-16">
-        <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-linear-to-r from-emerald-500 to-amber-500 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                <Image transition:name="about-photo" src={profileImg} alt="Dominik Babić" width={144} height={144} densities={[1, 2]} loading="eager" class="relative w-36 h-36 object-cover rounded-full border-2 border-gray-300 group-hover:border-emerald-500 transition-all duration-300"/>
-            </div>
-            <div class="text-center md:text-left flex-1">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
-                    <h1 data-no-toggle-anim class="text-5xl font-bold bg-linear-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent fade-in-up">About Me</h1>
+<BaseLayout title="About — Dominik Babić" description="AI engineer and computer vision researcher with an MSc from the University of Zagreb and KTH.">
+    <!-- Hero -->
+    <div class="mb-14">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-10">
+            <Image
+                transition:name="about-photo"
+                src={profileImg}
+                alt="Dominik Babić"
+                width={144}
+                height={144}
+                densities={[1, 2]}
+                loading="eager"
+                class="w-36 h-36 object-cover rounded-sm border border-line grayscale hover:grayscale-0 transition-all duration-300 shrink-0"
+            />
+            <div class="text-center sm:text-left flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+                    <h1 data-no-toggle-anim class="font-serif text-4xl font-bold tracking-tight fade-in-up">About</h1>
                     <ToggleNav options={toggleOptions} active="/about/tech" transitionName="about-toggle" />
                 </div>
-                <p class="text-xl text-emerald-600 font-medium fade-in-up">AI Engineer • Computer Vision Researcher • Competitive Runner</p>
+                <p class="font-mono text-xs uppercase tracking-[0.2em] text-faint fade-in-up">
+                    AI engineer · CV researcher · competitive runner
+                </p>
             </div>
         </div>
 
-        <div class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
-            <p class="text-gray-700 leading-8 text-lg mb-4">
-                I'm a dedicated Machine Learning Engineer and Cybersecurity Enthusiast with a <span class="text-emerald-600 font-medium">Master's in Computer Science</span> from the University of Zagreb and KTH Royal Institute of Technology in Sweden.
-                My expertise spans <span class="text-emerald-600 font-medium">deep learning</span>, <span class="text-emerald-600 font-medium">computer vision</span>, and <span class="text-emerald-600 font-medium">security research</span>, with extensive hands-on experience building
-                innovative AI solutions through diverse ventures including <span class="text-emerald-600 font-medium">research collaborations</span>, <span class="text-emerald-600 font-medium">competitive hackathons</span>, and <span class="text-emerald-600 font-medium">independent projects</span> that push technological boundaries.
+        <div class="fade-in-up space-y-4 text-muted leading-relaxed">
+            <p>
+                I'm a machine learning engineer and cybersecurity enthusiast with a
+                <strong class="text-ink font-medium">Master's in Computer Science</strong> from the University of Zagreb
+                and KTH Royal Institute of Technology in Sweden. My work spans deep learning, computer vision and
+                security research — built up through research collaborations, hackathons, and independent projects.
             </p>
-            <p class="text-gray-700 leading-8 text-lg mb-4">
-                Recently, I've expanded my expertise into the exciting field of <span class="text-emerald-600 font-medium">Robotics and Automation</span>, where I'm actively learning and implementing solutions using <span class="text-emerald-600 font-medium">ROS (Robot Operating System)</span> and <span class="text-emerald-600 font-medium">ROS 2</span>.
-                This journey into robotics perfectly complements my AI background, allowing me to bridge the gap between intelligent algorithms and physical autonomous systems.
-                I'm particularly fascinated by how machine learning can enhance robotic perception and decision-making in real-world environments.
+            <p>
+                Lately I've been moving into <strong class="text-ink font-medium">robotics and automation</strong>,
+                working with ROS and ROS 2. It's a natural extension of the AI background: bridging the gap between
+                intelligent algorithms and physical autonomous systems, especially where machine learning can improve
+                robotic perception and decision-making in the real world.
             </p>
-            <p class="text-gray-700 leading-8 text-lg">
-                Beyond my technical pursuits in neural networks and robotics, I'm passionate about <span class="text-emerald-600 font-medium">middle- and long-distance running</span> and actively participate in the European running scene.
-                You'll often find me training on urban streets and scenic trails, preparing for many different races ranging from 400m, 800m and 1500m to <span class="text-emerald-600 font-medium">marathons and half-marathons</span> across different countries.
+            <p>
+                Away from the keyboard I'm a <strong class="text-ink font-medium">competitive middle- and long-distance runner</strong> —
+                racing everything from 400m to the marathon across the European running scene.
             </p>
         </div>
     </div>
 
-    <!-- Education Section -->
-    <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Education</h2>
-        <div class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
-            <div class="flex items-start gap-6">
-                <div class="shrink-0">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="grow space-y-8">
-                    <InfoCard
-                        institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
-                        degree="MSc in Computer Science"
-                        specialization="Artificial Intelligence and Computer Vision"
-                        list={["Excelled academically, placing in the top 2% of students in the generation with a GPA of 4.79/5.0.", "Relevant courses: Machine Learning, Pattern Recognition, Computer Vision, Deep Learning etc"]}
-                        startDate="2023"
-                        endDate="2025"
-                    />
-                    <InfoCard
-                        institution="KTH Royal Institute of Technology, Sweden"
-                        degree="MSc in Computer Science - Exchange"
-                        list={["Collaborated on a reproducibility research paper: An in-depth exploration of Finite Scalar Quantization with VAEs.", "Relevant courses: Deep Learning Advanced, Security in Computer Systems, Reinforcement Learning etc."]}
-                        startDate="2024"
-                        endDate="2025"
-                    />
-                    <InfoCard
-                        institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
-                        degree="BSc in Computer Science"
-                        list={["Ranked in the top 5% of students in the generation with a GPA of 4.54/5.0.", "Bachelor's Thesis awarded with the highest grade for the research on: Vector Quantized Variational Autoencoder - VQVAE."]}
-                        startDate="2020"
-                        endDate="2023"
-                    />
-                </div>
+    <!-- Education -->
+    <section class="mb-14">
+        <div class="flex items-baseline gap-3 mb-4 fade-in-up">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">01</span>
+            <h2 class="font-serif text-2xl font-semibold">Education</h2>
+            <div class="flex-1 border-b border-line self-center"></div>
+        </div>
+        <div class="fade-in-up space-y-8">
+            <InfoCard
+                institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
+                degree="MSc in Computer Science"
+                specialization="Artificial Intelligence and Computer Vision"
+                list={["Top 2% of the generation, GPA 4.79/5.0.", "Relevant courses: Machine Learning, Pattern Recognition, Computer Vision, Deep Learning."]}
+                startDate="2023"
+                endDate="2025"
+            />
+            <InfoCard
+                institution="KTH Royal Institute of Technology, Sweden"
+                degree="MSc in Computer Science — Exchange"
+                list={["Collaborated on a reproducibility research paper: an in-depth exploration of Finite Scalar Quantization with VAEs.", "Relevant courses: Deep Learning Advanced, Security in Computer Systems, Reinforcement Learning."]}
+                startDate="2024"
+                endDate="2025"
+            />
+            <InfoCard
+                institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
+                degree="BSc in Computer Science"
+                list={["Top 5% of the generation, GPA 4.54/5.0.", "Bachelor's thesis awarded the highest grade for research on Vector Quantized Variational Autoencoders (VQ-VAE)."]}
+                startDate="2020"
+                endDate="2023"
+            />
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="mb-14">
+        <div class="flex items-baseline gap-3 mb-4 fade-in-up">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">02</span>
+            <h2 class="font-serif text-2xl font-semibold">Experience</h2>
+            <div class="flex-1 border-b border-line self-center"></div>
+        </div>
+        <div class="fade-in-up space-y-8">
+            <InfoCard
+                institution="Gideon Brothers d.o.o."
+                degree="Junior R&D Engineer"
+                description="Developing autonomous mobile robots, coordination algorithms, and simulation environments."
+                startDate="2025"
+                endDate="now"
+            />
+            <InfoCard
+                institution="Visual Recognition Group, CTU in Prague, Czech Republic"
+                degree="Deep Learning Researcher"
+                description="Researched detection of maliciously crafted image content; developed a novel method for detecting generated adversarial images with over 90% accuracy."
+                startDate="2025"
+                endDate="2025"
+            />
+            <InfoCard
+                institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
+                degree="Teaching Assistant"
+                description="Facilitated exercises, graded assignments and exams, and mentored students across more than eight courses."
+                startDate="2023"
+                endDate="2025"
+            />
+            <InfoCard
+                institution="Syskit d.o.o."
+                degree="Full Stack Developer Intern"
+                description="Contributed to the development and maintenance of a SaaS React-based web and Microsoft Teams app."
+                startDate="2022"
+                endDate="2023"
+            />
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-14">
+        <div class="flex items-baseline gap-3 mb-4 fade-in-up">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">03</span>
+            <h2 class="font-serif text-2xl font-semibold">Skills</h2>
+            <div class="flex-1 border-b border-line self-center"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-6 fade-in-up">
+            <div>
+                <h3 class="font-mono text-xs uppercase tracking-widest text-faint mb-3">Focus</h3>
+                <ul class="space-y-1.5 text-sm text-muted">
+                    <li>Deep learning &amp; neural networks</li>
+                    <li>Computer vision</li>
+                    <li>Natural language processing</li>
+                    <li>Reinforcement learning</li>
+                    <li>Robotics &amp; automation</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-mono text-xs uppercase tracking-widest text-faint mb-3">Toolbox</h3>
+                <ul class="space-y-1.5 font-mono text-sm text-muted">
+                    <li>Python · PyTorch · TensorFlow</li>
+                    <li>C++ · CUDA · OpenCV</li>
+                    <li>JavaScript · React · Node.js</li>
+                    <li>ROS 2 · Docker · AWS</li>
+                    <li>Git · Linux · security tooling</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Technical Skills</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="fade-in-up bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-emerald-600">AI & Machine Learning</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-gray-700">Deep Learning & Neural Networks</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-gray-700">Computer Vision</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-gray-700">Natural Language Processing</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-gray-700">Reinforcement Learning</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-gray-700">Robotics and Automation</span></div>
-                </div>
-            </div>
-            <div class="fade-in-up bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-emerald-600">Technologies & Tools</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-green-500 rounded-full"></div><span class="text-gray-700">Python • TensorFlow • PyTorch</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-yellow-500 rounded-full"></div><span class="text-gray-700">JavaScript • React • Node.js</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-red-500 rounded-full"></div><span class="text-gray-700">C++ • CUDA • OpenCV</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-purple-500 rounded-full"></div><span class="text-gray-700">Docker • AWS</span></div>
-                    <div class="flex items-center gap-3"><div class="w-2 h-2 bg-orange-500 rounded-full"></div><span class="text-gray-700">Git • Linux • Cybersecurity Tools</span></div>
-                </div>
-            </div>
+    <!-- Contact -->
+    <section class="fade-in-up">
+        <div class="flex items-baseline gap-3 mb-4">
+            <span class="font-mono text-xs text-pop tabular-nums" aria-hidden="true">04</span>
+            <h2 class="font-serif text-2xl font-semibold">Contact</h2>
+            <div class="flex-1 border-b border-line self-center"></div>
         </div>
-    </section>
-
-    <!-- Professional Experience -->
-    <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-center fade-in-up">Professional Experience</h2>
-        <div class="fade-in-up bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-300 hover:border-emerald-500/30 transition-all duration-300">
-            <div class="flex items-start gap-6">
-                <div class="shrink-0">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <rect x="3" y="7" width="18" height="13" rx="2" stroke-width="2" stroke="currentColor" fill="none"/>
-                            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke-width="2" stroke="currentColor" fill="none"/>
-                            <path d="M3 10h18" stroke-width="2" stroke="currentColor" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="space-y-8">
-                    <InfoCard
-                        institution="Gideon Brothers d.o.o."
-                        degree="Junior R&D Engineer"
-                        description="Working on developing autonomous mobile robots, coordination algorithms, and simulation environments."
-                        startDate="June 2025"
-                        endDate="Present"
-                    />
-                    <InfoCard
-                        institution="Visual Recognition Group, CTU in Prague, Czech Republic"
-                        degree="Deep Learning Researcher"
-                        description="Conducted research on the topic of Detection of maliciously crafted image content and developed a novel method for detecting generated adversarial images with over 90% accuracy rate."
-                        startDate="March 2025"
-                        endDate="July 2025"
-                    />
-                    <InfoCard
-                        institution="Faculty of Electrical Engineering and Computing, University of Zagreb, Croatia"
-                        degree="Teaching Assistant"
-                        description="Responsibilities includ facilitating exercises, grading assignments, evaluating exams, and mentoring students on over eight courses."
-                        startDate="Nov 2023"
-                        endDate="July 2025"
-                    />
-                    <InfoCard
-                        institution="Syskit d.o.o."
-                        degree="Full Stack Developer Intern"
-                        description="Contributed to the development and maintenance of a SaaS React-based web and Microsoft Teams App."
-                        startDate="June 2022"
-                        endDate="August 2023"
-                    />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="fade-in-up bg-linear-to-r from-white/40 to-emerald-50/30 p-8 rounded-2xl border border-gray-300">
-        <h2 class="text-3xl font-bold mb-6 text-center">Let's Connect</h2>
-        <div class="text-center space-y-4">
-            <p class="text-gray-600 text-lg mb-6">
-                Whether you're looking to discuss exciting opportunities, collaborate on innovative projects, share thoughts on technology and life, or join me for a run, I'd love to connect!
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="/assets/cv.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Download CV
-                </a>
-                <a href="mailto:babic.dominik13@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/25">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                    Email
-                </a>
-                <a href="https://www.linkedin.com/in/dominik-babić/" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path></svg>
-                    LinkedIn
-                </a>
-                <a href="https://github.com/dominik-babic" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path></svg>
-                    GitHub
-                </a>
-                <a class="inline-flex items-center gap-2 px-6 py-3 bg-[#FC5200] hover:bg-[#E04A00] text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg" href='https://strava.com/athletes/72844955' target="_blank">
-                    <Image src='https://badges.strava.com/logo-strava.png' alt='Strava' height=13 width=51 />
-                </a>
-            </div>
+        <p class="text-muted leading-relaxed mb-6 max-w-[62ch]">
+            Whether you want to discuss opportunities, collaborate on a project, talk shop — or join me for a run — I'd love to connect.
+        </p>
+        <div class="flex flex-wrap gap-3 font-mono text-xs">
+            <a href="/assets/cv.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 border border-line rounded-xs text-ink hover:border-accent hover:text-accent transition-colors duration-150">
+                cv.pdf ↓
+            </a>
+            <a href="mailto:babic.dominik13@gmail.com" class="inline-flex items-center gap-2 px-4 py-2.5 border border-line rounded-xs text-ink hover:border-accent hover:text-accent transition-colors duration-150">
+                email
+            </a>
+            <a href="https://www.linkedin.com/in/dominik-babić/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 border border-line rounded-xs text-ink hover:border-accent hover:text-accent transition-colors duration-150">
+                linkedin ↗
+            </a>
+            <a href="https://github.com/dominik-babic" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 border border-line rounded-xs text-ink hover:border-accent hover:text-accent transition-colors duration-150">
+                github ↗
+            </a>
+            <a href="https://strava.com/athletes/72844955" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 border border-line rounded-xs text-ink hover:border-pop hover:text-pop transition-colors duration-150">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+                </svg>
+                strava ↗
+            </a>
         </div>
     </section>
 </BaseLayout>

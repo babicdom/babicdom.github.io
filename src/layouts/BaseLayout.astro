@@ -2,20 +2,33 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 
+export interface Props {
+    title?: string;
+    description?: string;
+    /** "personal" swaps the accent to orange-led; default is green-led academic */
+    accent?: "academic" | "personal";
+}
+
 const {
     title = "Dominik Babić",
     description = "Dominik Babić — AI engineer and researcher. Projects, writing and notes on machine learning, security and running.",
+    accent = "academic",
 } = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+
+const navItems = [
+    { label: "Projects", href: "/projects", match: "/projects" },
+    { label: "Blog", href: "/blog/tech", match: "/blog" },
+    { label: "About", href: "/about/tech", match: "/about" },
+];
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-50 text-gray-900">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -27,200 +40,100 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
         <meta name="twitter:card" content="summary" />
+        <script is:inline>
+            // Resolve the theme before first paint, and again after every
+            // client-side swap (the ClientRouter replaces the <html> attributes).
+            (() => {
+                if (window.__themeInit) return;
+                window.__themeInit = true;
+                const apply = () => {
+                    const stored = localStorage.getItem("theme");
+                    const theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                    document.documentElement.dataset.theme = theme;
+                };
+                apply();
+                document.addEventListener("astro:after-swap", apply);
+            })();
+        </script>
         <ClientRouter />
-        <style>
-            /* Dynamic Background Waves */
-            .dynamic-bg {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: -1;
-                background:
-                    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.15) 1px, transparent 0),
-                    #f9fafb; /* gray-50 base with subtle dot grid */
-                background-size: 24px 24px, auto;
-                overflow: hidden;
-            }
-            
-            .dynamic-bg::before {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background:
-                    radial-gradient(
-                        ellipse 800px 400px at -400px -200px,
-                        rgba(16, 185, 129, 0.12) 0%,
-                        rgba(245, 158, 11, 0.08) 40%,
-                        transparent 70%
-                    ),
-                    radial-gradient(
-                        ellipse 600px 300px at calc(100% + 300px) -150px,
-                        rgba(245, 158, 11, 0.10) 0%,
-                        rgba(20, 184, 166, 0.07) 40%,
-                        transparent 70%
-                    );
-                animation: wave-motion-edges 18s ease-in-out infinite;
-                filter: blur(40px);
-                top: 0;
-                left: 0;
-                will-change: transform, opacity;
-            }
-            
-            .dynamic-bg::after {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background:
-                    radial-gradient(
-                        ellipse 700px 350px at -350px calc(100% + 175px),
-                        rgba(20, 184, 166, 0.10) 0%,
-                        rgba(16, 185, 129, 0.07) 40%,
-                        transparent 70%
-                    ),
-                    radial-gradient(
-                        ellipse 500px 250px at calc(100% + 250px) calc(100% + 125px),
-                        rgba(245, 158, 11, 0.08) 0%,
-                        rgba(20, 184, 166, 0.06) 40%,
-                        transparent 70%
-                    );
-                animation: wave-motion-edges 22s ease-in-out infinite reverse;
-                filter: blur(40px);
-                bottom: 0;
-                right: 0;
-                animation-delay: -11s;
-                will-change: transform, opacity;
-            }
-            
-            @keyframes wave-motion-edges {
-                0%, 100% { 
-                    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-                    opacity: 0.5;
-                }
-                25% { 
-                    transform: translate3d(-80px, -50px, 0) scale(1.15) rotate(3deg);
-                    opacity: 0.9;
-                }
-                50% { 
-                    transform: translate3d(100px, -60px, 0) scale(0.85) rotate(-2deg);
-                    opacity: 1.0;
-                }
-                75% { 
-                    transform: translate3d(-70px, 90px, 0) scale(1.1) rotate(2.5deg);
-                    opacity: 0.8;
-                }
-            }
-            
-            /* Additional floating orbs */
-            .floating-orb {
-                position: fixed;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: -1;
-                filter: blur(40px);
-                opacity: 0.4;
-                will-change: transform;
-            }
-            
-            .orb-1 {
-                width: 200px;
-                height: 200px;
-                background: linear-gradient(45deg, rgba(16, 185, 129, 0.08), rgba(245, 158, 11, 0.05));
-                top: -50px;
-                left: -50px;
-                animation: float-1 20s ease-in-out infinite;
-            }
-            
-            .orb-2 {
-                width: 180px;
-                height: 180px;
-                background: linear-gradient(135deg, rgba(245, 158, 11, 0.07), rgba(20, 184, 166, 0.05));
-                top: -40px;
-                right: -40px;
-                animation: float-2 25s ease-in-out infinite reverse;
-            }
-            
-            .orb-3 {
-                width: 160px;
-                height: 160px;
-                background: linear-gradient(225deg, rgba(20, 184, 166, 0.07), rgba(16, 185, 129, 0.05));
-                bottom: -30px;
-                right: -30px;
-                animation: float-3 18s ease-in-out infinite;
-            }
-            
-            @keyframes float-1 {
-                0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-                50% { transform: translate3d(30px, -20px, 0) scale(1.1); }
-            }
-            
-            @keyframes float-2 {
-                0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-                50% { transform: translate3d(-40px, -30px, 0) scale(1.15); }
-            }
-            
-            @keyframes float-3 {
-                0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-                50% { transform: translate3d(-25px, 30px, 0) scale(1.2); }
-            }
-            
-            .orb-4 {
-                width: 140px;
-                height: 140px;
-                background: linear-gradient(315deg, rgba(245, 158, 11, 0.06), rgba(16, 185, 129, 0.04));
-                bottom: -35px;
-                left: -35px;
-                animation: float-4 23s ease-in-out infinite;
-            }
-            
-            @keyframes float-4 {
-                0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-                50% { transform: translate3d(20px, -15px, 0) scale(1.05); }
-            }
-        </style>
     </head>
-    <body class="min-h-screen flex flex-col relative">
-        <!-- Dynamic Background -->
-        <div class="dynamic-bg"></div>
-        
-        <!-- Floating Orbs -->
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
-        <div class="floating-orb orb-4"></div>
-        <header class="sticky top-0 z-50 w-full py-4 bg-white/90 backdrop-blur-md border-b border-gray-200/60 shadow-lg shadow-gray-300/20 mb-8">
-            <nav class="max-w-5xl mx-auto flex justify-between items-center px-4">
-                <a href="/" class="text-lg font-semibold tracking-tight text-gray-800 hover:text-emerald-700 transition-colors duration-200">
+    <body data-accent={accent === "personal" ? "personal" : undefined} class="min-h-screen flex flex-col font-sans antialiased">
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-100 focus:px-3 focus:py-2 focus:bg-raised focus:border focus:border-line font-mono text-xs">
+            Skip to content
+        </a>
+
+        <header class="sticky top-0 z-50 w-full bg-bg/90 backdrop-blur-sm border-b border-line">
+            <nav class="max-w-3xl mx-auto flex items-center justify-between gap-4 px-4 h-14" aria-label="Main">
+                <a href="/" class="font-serif font-semibold tracking-tight text-ink hover:text-accent transition-colors duration-150">
                     Dominik Babić
                 </a>
-                <div class="flex space-x-3">
-                    <a href="/projects" class="nav-link">Projects</a>
-                    <a href="/blog/tech" class="nav-link">Blogs</a>
-                    <a href="/about/tech" class="nav-link">About</a>
+                <div class="flex items-center gap-5 sm:gap-6">
+                    {navItems.map((item) => (
+                        <a
+                            href={item.href}
+                            class="nav-link"
+                            aria-current={path.startsWith(item.match) ? "page" : undefined}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                    <button
+                        id="theme-toggle"
+                        type="button"
+                        aria-label="Toggle color scheme"
+                        class="text-muted hover:text-accent transition-colors duration-150 cursor-pointer"
+                    >
+                        <svg class="w-4 h-4 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                        <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </button>
                 </div>
             </nav>
         </header>
-        <main class="flex-1 max-w-5xl mx-auto w-full px-4 py-5">
+
+        <main id="main-content" class="flex-1 max-w-3xl mx-auto w-full px-4 py-10">
             <slot />
         </main>
-        <footer class="py-6 text-center border-t border-gray-200">
-            <p class="text-sm text-gray-400">© {new Date().getFullYear()} Dominik Babić</p>
+
+        <footer class="border-t border-line mt-16">
+            <div class="max-w-3xl mx-auto px-4 py-8 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-faint">
+                <span>© {new Date().getFullYear()} Dominik Babić · Zagreb, HR</span>
+                <span class="flex items-center gap-4">
+                    <a href="/rss.xml" class="hover:text-accent transition-colors duration-150">rss</a>
+                    <a href="https://github.com/dominik-babic" class="hover:text-accent transition-colors duration-150">github</a>
+                    <a href="https://strava.com/athletes/72844955" class="hover:text-pop transition-colors duration-150">strava</a>
+                </span>
+            </div>
         </footer>
+
         <script>
-            document.addEventListener('astro:before-swap', (e) => {
-                const from = (e as any).from?.pathname ?? '';
-                const to = (e as any).to?.pathname ?? '';
+            // Theme toggle — persists the choice and lets embedded widgets (giscus) resync.
+            const bindThemeToggle = () => {
+                document.getElementById("theme-toggle")?.addEventListener("click", () => {
+                    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+                    document.documentElement.dataset.theme = next;
+                    localStorage.setItem("theme", next);
+                    document.dispatchEvent(new CustomEvent("theme-change"));
+                });
+            };
+            document.addEventListener("astro:page-load", bindThemeToggle);
+
+            // Skip entry animations when toggling between sibling sections (blog/about tabs),
+            // so the tab switch feels like a state change rather than a page load.
+            document.addEventListener("astro:before-swap", (e) => {
+                const from = (e as any).from?.pathname ?? "";
+                const to = (e as any).to?.pathname ?? "";
                 const isSectionToggle =
-                    (from.startsWith('/blog') && to.startsWith('/blog')) ||
-                    (from.startsWith('/about') && to.startsWith('/about'));
+                    (from.startsWith("/blog") && to.startsWith("/blog")) ||
+                    (from.startsWith("/about") && to.startsWith("/about"));
                 if (isSectionToggle) {
-                    (e as any).newDocument.querySelectorAll('[data-no-toggle-anim]').forEach((el: HTMLElement) => {
-                        el.style.animation = 'none';
-                        el.style.opacity = '1';
-                        el.style.transform = 'none';
+                    (e as any).newDocument.querySelectorAll("[data-no-toggle-anim]").forEach((el: HTMLElement) => {
+                        el.style.animation = "none";
+                        el.style.opacity = "1";
+                        el.style.transform = "none";
                     });
                 }
             });

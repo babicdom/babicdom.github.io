@@ -1,209 +1,220 @@
+/* Self-hosted IBM Plex system — serif for headings/prose, sans for body, mono for meta */
+@import "@fontsource/ibm-plex-serif/400.css";
+@import "@fontsource/ibm-plex-serif/400-italic.css";
+@import "@fontsource/ibm-plex-serif/600.css";
+@import "@fontsource/ibm-plex-serif/700.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
-@theme {
-  --font-sans: 'Mulish', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, serif;
+/* dark: variant follows the explicit data-theme attribute (set before paint in BaseLayout) */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   Academic pages (default) lead with green; personal pages (data-accent on
+   body) swap the roles so orange leads and green becomes the secondary "pop".
+--------------------------------------------------------------------------- */
+:root {
+  --bg: #faf9f7;
+  --raised: #ffffff;
+  --ink: #1c1c1a;
+  --muted: #57534e;
+  --faint: #79716b;
+  --line: #e4e1db;
+  --dot: rgba(28, 28, 26, 0.13);
+  --accent: #166534;
+  --accent-soft: rgba(22, 101, 52, 0.09);
+  --pop: #c2410c;
+  --pop-soft: rgba(194, 65, 12, 0.1);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'IBM Plex Serif', ui-serif, Georgia, serif;
+[data-accent="personal"] {
+  --accent: #c2410c;
+  --accent-soft: rgba(194, 65, 12, 0.1);
+  --pop: #166534;
+  --pop-soft: rgba(22, 101, 52, 0.09);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+[data-theme="dark"] {
+  --bg: #141613;
+  --raised: #1c1f1b;
+  --ink: #e8e6e1;
+  --muted: #aaa49e;
+  --faint: #8f8a84;
+  --line: #2c2f2a;
+  --dot: rgba(232, 230, 225, 0.09);
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.1);
+  --pop: #fb923c;
+  --pop-soft: rgba(251, 146, 60, 0.12);
 }
 
-::-webkit-scrollbar-track {
-  background: #f3f4f6;
+[data-theme="dark"] [data-accent="personal"] {
+  --accent: #fb923c;
+  --accent-soft: rgba(251, 146, 60, 0.12);
+  --pop: #4ade80;
+  --pop-soft: rgba(74, 222, 128, 0.1);
 }
 
-::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 4px;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-pop: var(--pop);
+  --color-pop-soft: var(--pop-soft);
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "IBM Plex Serif", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
-
-/* Smooth page transitions */
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable; /* prevents nav shift between short and tall pages */
 }
 
 body {
-  @apply transition-colors duration-300;
+  background-color: var(--bg);
+  color: var(--ink);
+  /* static engineering-paper dot grid — the one bit of texture we keep */
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 26px 26px;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Enhanced link animations */
-.link-animate {
-  @apply transition-all duration-200 ease-out;
-  transform-origin: center;
-  position: relative;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
 }
 
-.link-animate:active {
-  @apply scale-95;
-  filter: brightness(0.9);
+::selection {
+  background: var(--accent);
+  color: var(--bg);
 }
 
-.link-animate:hover {
-  @apply scale-105;
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--faint); }
+
+/* ---------------------------------------------------------------------------
+   Navigation
+--------------------------------------------------------------------------- */
+.nav-link {
+  @apply font-mono text-xs uppercase tracking-widest text-muted transition-colors duration-150;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
 }
 
-/* Subtle glow effect for cards and interactive elements */
-.glow-on-hover {
-  position: relative;
-  transition: all 0.3s ease;
+.nav-link:hover {
+  color: var(--accent);
 }
 
-.glow-on-hover:hover {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+.nav-link[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
-/* Floating animation for hero elements */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* ---------------------------------------------------------------------------
+   Filters — appearance driven purely by .active (toggled in filterGrid.ts)
+--------------------------------------------------------------------------- */
+.filter-btn {
+  @apply font-mono text-xs px-3 py-1.5 rounded-xs border border-line text-muted cursor-pointer transition-colors duration-150;
+  background: transparent;
 }
 
-.float-animation {
-  animation: float 6s ease-in-out infinite;
+.filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--faint);
 }
 
-/* Fade in animation for page content */
+.filter-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   Prose — wired to theme tokens so articles adapt to dark mode and accent
+--------------------------------------------------------------------------- */
+.prose {
+  --tw-prose-body: var(--ink);
+  --tw-prose-headings: var(--ink);
+  --tw-prose-lead: var(--muted);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-counters: var(--faint);
+  --tw-prose-bullets: var(--faint);
+  --tw-prose-hr: var(--line);
+  --tw-prose-quotes: var(--muted);
+  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-captions: var(--faint);
+  --tw-prose-code: var(--ink);
+  --tw-prose-pre-code: #e8e6e1;
+  --tw-prose-pre-bg: #1c1f1b;
+  --tw-prose-th-borders: var(--line);
+  --tw-prose-td-borders: var(--line);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — rare and quick; fully disabled for reduced-motion users
+--------------------------------------------------------------------------- */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in-up {
   opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-  animation-fill-mode: both;
-  will-change: opacity, transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  animation: fadeInUp 0.35s ease-out forwards;
 }
 
-/* Staggered animation delays */
-.delay-100 { 
-  animation-delay: 0.1s; 
-}
-.delay-200 { 
-  animation-delay: 0.2s; 
-}
-.delay-300 { 
-  animation-delay: 0.3s; 
-}
-.delay-400 { 
-  animation-delay: 0.4s; 
-}
-
-/* Ripple effect for interactive elements */
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(16, 185, 129, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
-}
-
-.ripple:active::before {
-  width: 300px;
-  height: 300px;
-}
-
-/* Subtle border animation */
-@keyframes borderGlow {
-  0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
-}
-
-.border-glow {
-  animation: borderGlow 2s ease-in-out infinite;
-}
-
-/* Custom focus styles */
-.focus-outline:focus {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-  border-radius: 0.5rem;
-}
-
-/* Filter buttons — appearance driven purely by the .active class (toggled in filterGrid.ts) */
-.filter-btn {
-  @apply px-4 py-2 text-sm font-medium rounded-full transition-all duration-200
-         bg-gray-100/50 text-gray-500 border border-gray-300/50
-         hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50;
-}
-
-.filter-btn.active {
-  @apply bg-emerald-500/15 text-emerald-700 border-emerald-500/50;
-}
-
-/* Nav link — shared pill style for header navigation */
-.nav-link {
-  @apply px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg
-         hover:bg-linear-to-r hover:from-emerald-500/10 hover:to-amber-500/10
-         hover:border-emerald-500/50 hover:text-emerald-700
-         hover:shadow-lg hover:shadow-emerald-500/20
-         transition-all duration-300 font-medium backdrop-blur-sm;
-}
-
-.nav-link:active {
-  @apply scale-95;
-  filter: brightness(0.9);
-}
-
-/* Text gradient animation */
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.gradient-text {
-  background: linear-gradient(-45deg, #34d399, #fbbf24, #34d399, #2dd4bf);
-  background-size: 400% 400%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 3s ease infinite;
-}
+.delay-100 { animation-delay: 0.08s; }
+.delay-200 { animation-delay: 0.16s; }
+.delay-300 { animation-delay: 0.24s; }
+.delay-400 { animation-delay: 0.32s; }
 
 /* Profile photo view transition — cross-fade with scale */
 ::view-transition-old(about-photo) {
-  animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-out;
+  animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-out;
 }
 ::view-transition-new(about-photo) {
-  animation: 500ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-in;
+  animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both vt-photo-in;
 }
 
 @keyframes vt-photo-out {
   from { opacity: 1; transform: scale(1); }
-  to   { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 0; transform: scale(0.9); }
 }
 
 @keyframes vt-photo-in {
-  from { opacity: 0; transform: scale(1.15); }
+  from { opacity: 0; transform: scale(1.1); }
   to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fade-in-up { opacity: 1; }
 }

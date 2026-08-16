@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import ProjectCard from "../../../components/ProjectCard.astro";
+import IndexEntry from "../../../components/IndexEntry.astro";
 import ToggleNav from "../../../components/ToggleNav.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
@@ -21,20 +21,20 @@ const toggleOptions = [
     { label: "Personal", href: "/blog/personal" },
 ];
 ---
-<BaseLayout title="Tech Blogs">
-    <div class="flex items-start justify-between mb-6">
+<BaseLayout title="Blog — Dominik Babić" description="Writing on computing, machine learning, and research.">
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
         <div>
-            <h1 data-no-toggle-anim class="text-4xl font-bold mb-2 fade-in-up">Blogs</h1>
-            <p class="text-gray-500 fade-in-up">Writing on computing, machine learning, and research.</p>
+            <h1 data-no-toggle-anim class="font-serif text-4xl font-bold tracking-tight mb-2 fade-in-up">Blog</h1>
+            <p class="text-muted fade-in-up">Writing on computing, machine learning, and research.</p>
         </div>
         <ToggleNav options={toggleOptions} active="/blog/tech" transitionName="blog-toggle" />
     </div>
 
-    <div class="mb-8 fade-in-up delay-100">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="text-sm font-medium text-gray-500">Filter by:</span>
+    <div class="mb-6 fade-in-up delay-100">
+        <div class="flex flex-wrap items-center gap-2 mb-3" role="group" aria-label="Filter posts by tag">
+            <span class="font-mono text-xs uppercase tracking-widest text-faint mr-1">filter</span>
             <button class="filter-btn active" data-filter="all" aria-pressed="true">
-                All ({blogs.length})
+                all ({blogs.length})
             </button>
             {allTags.map(tag => {
                 const count = blogs.filter((b: BlogEntry) => b.data.tags?.includes(tag)).length;
@@ -45,37 +45,36 @@ const toggleOptions = [
                 );
             })}
         </div>
-        <span id="results-count" class="text-sm text-gray-400">{blogs.length} post{blogs.length !== 1 ? "s" : ""}</span>
+        <span id="results-count" class="font-mono text-xs text-faint" aria-live="polite">{blogs.length} post{blogs.length !== 1 ? "s" : ""} found</span>
     </div>
 
-    <div id="blogs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 fade-in-up delay-200">
+    <div id="blogs-grid" class="border-t border-line fade-in-up delay-200">
         {blogs.map((blog: BlogEntry) => (
-            <div class="blog-item" data-tags={JSON.stringify(blog.data.tags || [])}>
-                <ProjectCard
-                    title={blog.data.title}
-                    description={blog.data.description}
-                    link={`/blog/${blog.id}`}
-                    hasDetailPage={true}
-                    tags={blog.data.tags}
-                />
-            </div>
+            <IndexEntry
+                title={blog.data.title}
+                description={blog.data.description}
+                date={blog.data.date}
+                link={`/blog/${blog.id}`}
+                hasDetailPage={true}
+                tags={blog.data.tags}
+            />
         ))}
     </div>
 
     {blogs.length === 0 && (
-        <div class="text-center py-16 text-gray-400 fade-in-up">
-            <p class="text-lg">No tech posts yet. Check back soon.</p>
+        <div class="py-16 text-center fade-in-up">
+            <p class="font-mono text-sm text-faint">// no tech posts yet — check back soon</p>
         </div>
     )}
 
-    <div id="no-results" class="hidden text-center py-16 text-gray-400 fade-in-up">
-        <p class="text-lg">No posts match that tag.</p>
+    <div id="no-results" class="hidden py-16 text-center fade-in-up">
+        <p class="font-mono text-sm text-faint">// no posts match that tag</p>
     </div>
 
     <script>
         import { initFilter } from '../../../scripts/filterGrid';
         initFilter({
-            itemSelector: '.blog-item',
+            itemSelector: '.entry',
             gridId: 'blogs-grid',
             noResultsId: 'no-results',
             resultsCountId: 'results-count',
