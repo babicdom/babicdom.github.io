@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {
@@ -15,7 +16,7 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {
@@ -30,7 +31,7 @@ const projects = defineCollection({
 });
 
 const tips = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/tips" }),
   schema: z.object({
     title: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {

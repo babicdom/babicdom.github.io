@@ -10,38 +10,45 @@ interface FilterOptions {
 export function initFilter(options: FilterOptions) {
     const { itemSelector, gridId, noResultsId, resultsCountId, labelSingular, labelPlural } = options;
 
-    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const items = document.querySelectorAll<HTMLElement>(itemSelector);
-    const resultsCount = document.getElementById(resultsCountId);
-    const noResults = document.getElementById(noResultsId);
-    const grid = document.getElementById(gridId) as HTMLElement;
+    const setup = () => {
+        // Module scripts run once per session, but the DOM is replaced on every
+        // client-side navigation — so listeners are (re)bound on astro:page-load.
+        // The guard keeps a listener registered by another page from firing here.
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
+        const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+        const items = document.querySelectorAll<HTMLElement>(itemSelector);
+        const resultsCount = document.getElementById(resultsCountId);
+        const noResults = document.getElementById(noResultsId);
 
-            filterBtns.forEach(b => {
-                b.classList.remove('active', 'bg-emerald-500/15', 'text-emerald-700', 'border-emerald-500/50');
-                b.classList.add('bg-gray-100/50', 'text-gray-500', 'border-gray-300/50');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+
+                filterBtns.forEach(b => {
+                    b.classList.toggle('active', b === btn);
+                    b.setAttribute('aria-pressed', String(b === btn));
+                });
+
+                let visibleCount = 0;
+                items.forEach(item => {
+                    const tags: string[] = JSON.parse(item.getAttribute('data-tags') || '[]');
+                    const show = filter === 'all' || tags.includes(filter!);
+                    item.style.display = show ? '' : 'none';
+                    if (show) visibleCount++;
+                });
+
+                if (resultsCount) {
+                    resultsCount.textContent = `${visibleCount} ${visibleCount !== 1 ? labelPlural : labelSingular} found`;
+                }
+                if (noResults) {
+                    noResults.classList.toggle('hidden', visibleCount > 0);
+                    grid.style.display = visibleCount > 0 ? '' : 'none';
+                }
             });
-            btn.classList.add('active', 'bg-emerald-500/15', 'text-emerald-700', 'border-emerald-500/50');
-            btn.classList.remove('bg-gray-100/50', 'text-gray-500', 'border-gray-300/50');
-
-            let visibleCount = 0;
-            items.forEach(item => {
-                const tags: string[] = JSON.parse(item.getAttribute('data-tags') || '[]');
-                const show = filter === 'all' || tags.includes(filter!);
-                item.style.display = show ? 'block' : 'none';
-                if (show) visibleCount++;
-            });
-
-            if (resultsCount) {
-                resultsCount.textContent = `${visibleCount} ${visibleCount !== 1 ? labelPlural : labelSingular} found`;
-            }
-            if (noResults && grid) {
-                noResults.classList.toggle('hidden', visibleCount > 0);
-                grid.style.display = visibleCount > 0 ? 'grid' : 'none';
-            }
         });
-    });
+    };
+
+    document.addEventListener('astro:page-load', setup);
 }

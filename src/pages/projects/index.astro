@@ -8,7 +8,7 @@ projects.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).
 
 const allTags = [...new Set(projects.flatMap(project => project.data.tags || []))].sort();
 ---
-<BaseLayout title="Projects">
+<BaseLayout title="Projects" description="ML, cybersecurity and research work, together with personal projects.">
     <div class="fade-in-up">
         <h1 class="text-4xl font-bold mb-4">Projects</h1>
         <p class="text-gray-500 mb-8">A collection of my ML, Cybersecurity, and research work together with my personal projects.</p>
@@ -17,19 +17,13 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags || [])
     <div class="mb-8 fade-in-up delay-100">
         <div class="flex flex-wrap items-center gap-3 mb-4">
             <span class="text-lg font-medium text-gray-700">Filter by:</span>
-            <button 
-                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-emerald-500/15 text-emerald-700 border border-emerald-500/50" 
-                data-filter="all"
-            >
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">
                 All ({projects.length})
             </button>
             {allTags.map((tag) => {
                 const count = projects.filter(p => p.data.tags?.includes(tag)).length;
                 return (
-                    <button 
-                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-100/50 text-gray-500 border border-gray-300/50 hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50" 
-                        data-filter={tag}
-                    >
+                    <button class="filter-btn" data-filter={tag} aria-pressed="false">
                         {tag} ({count})
                     </button>
                 );
@@ -47,16 +41,14 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags || [])
     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up delay-200">
         {
             projects.map((project) => (
-                <div class="project-item" data-tags={JSON.stringify(project.data.tags || [])}>
-                    <ProjectCard 
-                        title={project.data.title} 
-                        description={project.data.description} 
-                        github={project.data.github}
-                        hasDetailPage={project.data.hasDetailPage}
-                        link={`/projects/${project.slug}`}
-                        tags={project.data.tags}
-                    />
-                </div>
+                <ProjectCard
+                    title={project.data.title}
+                    description={project.data.description}
+                    github={project.data.github}
+                    hasDetailPage={project.data.hasDetailPage}
+                    link={`/projects/${project.id}`}
+                    tags={project.data.tags}
+                />
             ))
         }
     </div>

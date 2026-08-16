@@ -9,6 +9,10 @@ on:
   push:
     branches: ["main"]
 
+  # Monthly rebuild so date-dependent content (tip of the month) rotates
+  schedule:
+    - cron: "0 5 1 * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -32,6 +36,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Needed so the build can read the giscus IDs stored on the github-pages environment
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -67,6 +73,9 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
+        env:
+          DATA_REPO_ID: ${{ vars.DATA_REPO_ID || secrets.DATA_REPO_ID }}
+          DATA_CATEGORY_ID: ${{ vars.DATA_CATEGORY_ID || secrets.DATA_CATEGORY_ID }}
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
             --site "${{ steps.pages.outputs.origin }}" \

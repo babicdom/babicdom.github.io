@@ -1,45 +1,53 @@
 ---
-const data_repo_id = import.meta.env.DATA_REPO_ID;
-const data_category_id = import.meta.env.DATA_CATEGORY_ID;
+// giscus IDs are not secrets (they are visible in the rendered HTML anyway),
+// but they are kept in env so the repo stays configuration-free.
+// Locally: .env — In CI: variables/secrets on the github-pages environment.
+const repoId = import.meta.env.DATA_REPO_ID;
+const categoryId = import.meta.env.DATA_CATEGORY_ID;
 ---
-
-<div class="comments-section mt-8 pt-8 border-t border-gray-200/60">
+<div class="comments-section mt-12 pt-8 border-t border-gray-200/60">
   <h3 class="text-xl font-semibold mb-6 text-gray-800">Comments</h3>
-  
-  <div id="giscus-container">
-    <script 
-        src="https://giscus.app/client.js"
-        data-repo="dominik-babic/dominik-babic.github.io"
-        data-repo-id={data_repo_id}
-        data-category="General"
-        data-category-id={data_category_id}
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="0"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="en"
-        data-loading="eager"
-        crossorigin="anonymous"
-        async>
-    </script>
-  </div>
+  <div id="giscus-container" data-repo-id={repoId} data-category-id={categoryId}></div>
 </div>
 
-<style>
-  .giscus {
-    width: 100%;
-    max-width: none;
-  }
-  
-  .giscus-frame {
-    border: none !important;
-    background: transparent !important;
+<script>
+  // giscus is injected on every `astro:page-load` because the ClientRouter
+  // never re-executes an external <script src> it has already seen — a static
+  // tag would leave the comments empty after any client-side navigation.
+  function mountGiscus() {
+    const container = document.getElementById("giscus-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    const s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    const attrs: Record<string, string> = {
+      "data-repo": "dominik-babic/dominik-babic.github.io",
+      "data-repo-id": container.dataset.repoId || "",
+      "data-category": "General",
+      "data-category-id": container.dataset.categoryId || "",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "0",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": theme,
+      "data-lang": "en",
+      "data-loading": "lazy",
+    };
+    for (const [k, v] of Object.entries(attrs)) s.setAttribute(k, v);
+    container.appendChild(s);
   }
 
-  /* Hide reactions section if you prefer cleaner look */
-  .giscus .giscus-reactions {
-    display: none !important;
+  function syncGiscusTheme() {
+    const frame = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
+    const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app");
   }
-</style>
+
+  document.addEventListener("astro:page-load", mountGiscus);
+  document.addEventListener("theme-change", syncGiscusTheme);
+</script>

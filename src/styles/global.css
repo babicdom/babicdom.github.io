@@ -150,6 +150,17 @@ body {
   border-radius: 0.5rem;
 }
 
+/* Filter buttons — appearance driven purely by the .active class (toggled in filterGrid.ts) */
+.filter-btn {
+  @apply px-4 py-2 text-sm font-medium rounded-full transition-all duration-200
+         bg-gray-100/50 text-gray-500 border border-gray-300/50
+         hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50;
+}
+
+.filter-btn.active {
+  @apply bg-emerald-500/15 text-emerald-700 border-emerald-500/50;
+}
+
 /* Nav link — shared pill style for header navigation */
 .nav-link {
   @apply px-5 py-2.5 bg-white/70 border border-gray-200/60 rounded-lg

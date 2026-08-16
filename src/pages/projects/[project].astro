@@ -1,38 +1,40 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Comments from "../../components/Comments.astro";
-import { getCollection, getEntryBySlug } from "astro:content";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return projects.map((project) => ({
-    params: { project: project.slug },
+  return projects.map((project: CollectionEntry<"projects">) => ({
+    params: { project: project.id },
+    props: { entry: project },
   }));
 }
 
-const { project } = Astro.params;
-const projectData = await getEntryBySlug("projects", project);
-const { Content } = await projectData.render();
+type Props = { entry: CollectionEntry<"projects"> };
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title={projectData.data.title}>
+<BaseLayout title={entry.data.title} description={entry.data.description}>
     <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-4 fade-in-up">{projectData.data.title}</h1>
-        
+        <h1 class="text-4xl font-bold mb-4 fade-in-up">{entry.data.title}</h1>
+
         <div class="flex flex-wrap items-center gap-4 mb-4 fade-in-up delay-100">
-            {projectData.data.date && (
+            {entry.data.date && (
                 <time class="text-gray-500 text-sm flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
-                    {projectData.data.date}
+                    {entry.data.date}
                 </time>
             )}
-            
-            {projectData.data.github && (
-                <a 
-                    href={projectData.data.github} 
-                    target="_blank" 
+
+            {entry.data.github && (
+                <a
+                    href={entry.data.github}
+                    target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100/60 hover:bg-gray-200/60 border border-gray-300/50 hover:border-emerald-500/50 rounded-full text-emerald-600 hover:text-emerald-700 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/10"
                 >
@@ -47,11 +49,10 @@ const { Content } = await projectData.render();
             )}
         </div>
     </div>
-    
+
     <article class="prose prose-emerald mt-6 max-w-none fade-in-up delay-200">
       <Content />
     </article>
-    
-    <Comments title={projectData.data.title} class="fade-in-up delay-300" />
-</BaseLayout>
 
+    <Comments />
+</BaseLayout>

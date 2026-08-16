@@ -14,7 +14,15 @@ const tips = await getCollection("tips");
 tips.sort((a: CollectionEntry<"tips">, b: CollectionEntry<"tips">) =>
     new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
-const latestTip = tips[0] ?? null;
+// Show the tip matching the build month; fall back to the most recent one.
+// A monthly scheduled rebuild in CI keeps this fresh (see .github/workflows/astro.yml).
+const now = new Date();
+const currentMonthTip = tips.find((t: CollectionEntry<"tips">) => {
+    const d = new Date(t.data.date);
+    return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+});
+const latestTip = currentMonthTip ?? tips[0] ?? null;
+const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
 ---
 <BaseLayout title="Dominik Babić">
     <section class="pt-4 pb-10 fade-in-up">
@@ -26,7 +34,7 @@ const latestTip = tips[0] ?? null;
             <div class="border border-gray-200 rounded-xl p-7 bg-white/70 backdrop-blur-sm">
                 <div class="flex items-center gap-3 mb-4">
                     <span class="text-amber-500 text-sm">✦</span>
-                    <span class="text-xs font-semibold tracking-widest uppercase text-gray-400">Tip of the month</span>
+                    <span class="text-xs font-semibold tracking-widest uppercase text-gray-400">{tipLabel}</span>
                     <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20">
                         {latestTip.data.category}
                     </span>
@@ -48,7 +56,7 @@ const latestTip = tips[0] ?? null;
                     title={project.data.title}
                     description={project.data.description}
                     github={project.data.github}
-                    link={`/projects/${project.slug}`}
+                    link={`/projects/${project.id}`}
                     hasDetailPage={project.data.hasDetailPage}
                     tags={project.data.tags}
                 />
@@ -66,7 +74,7 @@ const latestTip = tips[0] ?? null;
                 <ProjectCard
                     title={blog.data.title}
                     description={blog.data.description}
-                    link={`/blog/${blog.slug}`}
+                    link={`/blog/${blog.id}`}
                     hasDetailPage={true}
                     tags={blog.data.tags}
                 />

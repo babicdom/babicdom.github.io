@@ -33,19 +33,13 @@ const toggleOptions = [
     <div class="mb-8 fade-in-up delay-100">
         <div class="flex flex-wrap items-center gap-3 mb-4">
             <span class="text-sm font-medium text-gray-500">Filter by:</span>
-            <button
-                class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-emerald-500/15 text-emerald-700 border border-emerald-500/50"
-                data-filter="all"
-            >
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">
                 All ({blogs.length})
             </button>
             {allTags.map(tag => {
-                const count = blogs.filter((b) => b.data.tags?.includes(tag)).length;
+                const count = blogs.filter((b: BlogEntry) => b.data.tags?.includes(tag)).length;
                 return (
-                    <button
-                        class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 bg-gray-100/50 text-gray-500 border border-gray-300/50 hover:bg-gray-200/50 hover:text-gray-700 hover:border-gray-400/50"
-                        data-filter={tag}
-                    >
+                    <button class="filter-btn" data-filter={tag} aria-pressed="false">
                         {tag} ({count})
                     </button>
                 );
@@ -55,12 +49,12 @@ const toggleOptions = [
     </div>
 
     <div id="blogs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 fade-in-up delay-200">
-        {blogs.map((blog) => (
+        {blogs.map((blog: BlogEntry) => (
             <div class="blog-item" data-tags={JSON.stringify(blog.data.tags || [])}>
                 <ProjectCard
                     title={blog.data.title}
                     description={blog.data.description}
-                    link={`/blog/${blog.slug}`}
+                    link={`/blog/${blog.id}`}
                     hasDetailPage={true}
                     tags={blog.data.tags}
                 />
