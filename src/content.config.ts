@@ -3,7 +3,7 @@ import { glob } from "astro/loaders";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {
       message: "Invalid date format",
@@ -12,12 +12,14 @@ const blog = defineCollection({
     description: z.string().optional(),
     featured: z.boolean().optional(),
     type: z.enum(["tech", "personal"]).default("tech"),
+    /** Optional preview image shown next to the entry in list views (path relative to the .md file) */
+    image: image().optional(),
   }),
 });
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     date: z.string().refine((date) => !isNaN(Date.parse(date)), {
       message: "Invalid date format",
@@ -27,6 +29,8 @@ const projects = defineCollection({
     featured: z.boolean().optional(),
     github: z.string().url().optional(),
     hasDetailPage: z.boolean().optional(),
+    /** Optional preview image shown next to the entry in list views (path relative to the .md file) */
+    image: image().optional(),
   }),
 });
 

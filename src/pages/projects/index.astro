@@ -46,6 +46,7 @@ const allTags = [...new Set(projects.flatMap((p: ProjectEntry) => p.data.tags ||
                 hasDetailPage={project.data.hasDetailPage}
                 link={`/projects/${project.id}`}
                 tags={project.data.tags}
+                image={project.data.image}
             />
         ))}
     </div>

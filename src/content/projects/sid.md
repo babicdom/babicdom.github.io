@@ -6,6 +6,7 @@ description: "A project focused on detecting synthetic images leveraging foundat
 featured: true
 github: "https://github.com/dominik-babic/Synth_Image_Detection"
 hasDetailPage: true
+image: "../../assets/img/previews/sid.png"
 ---
 
 ## Introduction

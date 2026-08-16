@@ -74,6 +74,7 @@ const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
                     link={`/projects/${project.id}`}
                     hasDetailPage={project.data.hasDetailPage}
                     tags={project.data.tags}
+                    image={project.data.image}
                 />
             ))}
         </div>
@@ -95,6 +96,7 @@ const tipLabel = currentMonthTip ? "Tip of the month" : "Latest tip";
                     link={`/blog/${blog.id}`}
                     hasDetailPage={true}
                     tags={blog.data.tags}
+                    image={blog.data.image}
                 />
             ))}
         </div>
